@@ -1,0 +1,194 @@
+.loginBTN {
+    background: linear-gradient(135deg, #4f6ef7, #6c63ff, #3ed6c5);
+    border: none !important;
+    height: 40px;
+    border-radius: 10px !important;
+    font-weight: 600;
+    transition: all 0.3s ease !important;
+}
+
+.loginBTN:hover {
+    transform: scale(1.01) translateY(-2px);
+    box-shadow:
+        0 12px 30px rgba(91, 95, 255, 0.3),
+        0 6px 15px rgba(56, 189, 248, 0.2);
+}
+
+.userBTN {
+    background-color: var(--nav-button) !important;
+    border: none !important;
+    height: 40px;
+    border-radius: 10px !important;
+    font-weight: 600;
+    transition: all 0.3s ease !important;
+    color: var(--btnTextColor) !important;
+    transition: all 0.3s ease !important;
+}
+
+.userLoading {
+    background-color: var(--nav-button) !important;
+    border: none !important;
+    height: 40px;
+    border-radius: 10px !important;
+    font-weight: 600;
+    width: 98px;
+    transition: all 0.3s ease !important;
+    color: var(--btnTextColor) !important;
+    transition: all 0.3s ease !important;
+}
+
+.userBTN:hover {
+    background-color: var(--btnBorderColor) !important;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 110%;
+    left: -150px;
+    width: 220px;
+    background: var(--nav-button);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    padding: 10px;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+    pointer-events: none;
+
+    transition: all 0.25s ease;
+}
+
+.dropdownItem {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--textColor);
+    transition: 0.2s;
+    border: none;
+    background-color: transparent;
+    text-align: start;
+    opacity: 0;
+    transform: translateY(5px);
+    transition: all 0.2s ease;
+}
+
+.dropdownItem:hover {
+    background: var(--btnBorderColor);
+    transform: translateX(5px);
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.show .dropdownItem {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.show .dropdownItem:nth-child(1) {
+    transition-delay: 0.05s;
+}
+
+.show .dropdownItem:nth-child(2) {
+    transition-delay: 0.1s;
+}
+
+.show .dropdownItem:nth-child(3) {
+    transition-delay: 0.15s;
+}
+
+.navLink {
+    padding: 0 8px; /* optional لتحسين مساحة الهوفر */
+}
+
+.categoryLink {
+    position: relative;
+    display: inline-block;
+    font-weight: 500;
+    color: var(--nav-text);
+    transition: color 0.3s ease;
+}
+
+/* 👇 hover على الأب */
+.navLink:hover .categoryLink {
+    color: var(--nav-text-active);
+}
+
+.categoryLink::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #5B5FFF, #38BDF8);
+    transition: width 0.3s ease;
+}
+
+.navLink:hover .categoryLink::after {
+    width: 100%;
+}
+
+/* active */
+.categoryLink.activeCategory {
+    color: var(--nav-text-active);
+}
+
+.categoryLink.activeCategory::after {
+    width: 100%;
+}
+
+.iconBTN {
+    position: relative;
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+    border: none;
+
+    background: var(--nav-button);
+    color: var(--btnTextColor);
+
+    transition: all 0.25s ease;
+}
+
+.iconBTN:hover {
+    background-color: var(--btnBorderColor) !important;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.iconBTN i {
+    font-size: 1rem;
+}
+
+.cartBadge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+
+    min-width: 18px;
+    height: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(135deg, #4f6ef7, #6c63ff, #3ed6c5);
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+
+    border-radius: 50%;
+    padding: 2px;
+}

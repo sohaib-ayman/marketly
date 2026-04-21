@@ -1,0 +1,158 @@
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.loginCard {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 25px;
+    width: 28rem !important;
+    max-width: 95%;
+    background-color: var(--cardBgColor);
+}
+
+.loginCard h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+    animation-delay: 0.3s;
+}
+
+.loginCard p:nth-of-type(1) {
+    color: var(--pColor);
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+    animation-delay: 0.5s;
+}
+
+.loginCard p:nth-of-type(2) {
+    color: var(--pColor);
+    font-size: 0.875rem;
+    position: relative;
+}
+
+.dividerText {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    color: var(--pColor);
+    font-size: 0.875rem;
+}
+
+.dividerText::before,
+.dividerText::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: var(--btnBorderColor);
+}
+
+.loginCard label {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.loginBTN {
+    background: linear-gradient(135deg, #4f6ef7, #6c63ff, #3ed6c5);
+    border: none !important;
+    height: 55px;
+    border-radius: 14px !important;
+    font-weight: 600;
+    transition: all 0.3s ease !important;
+}
+
+.loginBTN:hover {
+    transform: scale(1.01) translateY(-2px);
+    box-shadow:
+        0 12px 30px rgba(91, 95, 255, 0.3),
+        0 6px 15px rgba(56, 189, 248, 0.2);
+}
+
+.user {
+    font-size: 2rem;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #4f6ef7, #6c63ff, #3ed6c5);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    animation: ScaleUp 0.3s ease forwards;
+}
+
+.inputField {
+    position: relative;
+}
+
+.inputField input {
+    background-color: var(--pageBgColor);
+    padding-left: 50px !important;
+    height: 55px;
+    border-radius: 15px;
+}
+
+.inputField i {
+    position: absolute;
+    font-size: 20px;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    pointer-events: none;
+}
+
+.formContainer {
+    width: 85%;
+}
+
+.registerBTN {
+    background-color: transparent;
+    border-color: var(--btnBorderColor) !important;
+    height: 50px;
+    border-radius: 14px !important;
+    font-weight: 600;
+    border-width: 2px !important;
+    transition: all 0.3s ease;
+}
+
+.registerBTN:hover {
+    border-color: var(--pColor) !important;
+}
+
+.loginGuest {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+@keyframes ScaleUp {
+    from {
+        transform: scale(0.5);
+    }
+    
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .formContainer {
+        width: 95%;
+    }
+}
