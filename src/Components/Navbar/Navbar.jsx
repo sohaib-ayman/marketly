@@ -8,18 +8,25 @@ import { signOut } from "firebase/auth";
 import { BeatLoader } from "react-spinners";
 import { DataContext } from "../../Context/DataContext";
 
+import CartDropdown from "../Cart/CartDropdown";
+import { useSelector } from "react-redux";
+
 export default function Navbar() {
     let [color, setColor] = useState("#ffffff");
     let { user, loading } = useContext(UserContext);
     let { theme, toggleTheme } = useContext(ThemeContext);
     let navigate = useNavigate();
     let [isOpen, setIsOpen] = useState(false);
+    let [cartOpen, setCartOpen] = useState(false);
     let [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     let location = useLocation();
     let isAdmin = user?.email === "admin@admin.com";
     let isLoggedIn = user && !user.isAnonymous;
     let [loggingOut, setLoggingOut] = useState(false);
     let { categories } = useContext(DataContext);
+    
+    let cartItems = useSelector(state => state.cart.items);
+    let cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
     useEffect(() => {
         let handleResize = () => {
@@ -59,7 +66,7 @@ export default function Navbar() {
                 <div className="d-flex d-lg-none align-items-center gap-2 ms-auto">
                     <button className={Style.iconBTN} onClick={toggleTheme}>{theme === "light" ? <i className="fa-solid fa-moon"></i> : <i className="fa-solid fa-sun"></i>}</button>
                     <Link className={`${Style.iconBTN} me-2 text-decoration-none`} to={"/cart"}><i className="fa-solid fa-cart-shopping"></i>
-                        <span className={Style.cartBadge}>0</span>
+                        <span className={Style.cartBadge}>{cartCount}</span>
                     </Link>
                 </div>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -103,10 +110,14 @@ export default function Navbar() {
 
                         {(!isLoggedIn) ? (
                             <li className="nav-item">{loading ? <button className={`btn ${Style.userLoading} d-flex justify-content-center align-items-center gap-2`}><BeatLoader color={color} size={10} /></button> : <Link className={`btn ${Style.loginBTN} text-white w-100 d-flex justify-content-center align-items-center gap-2 mt-3 mt-md-0`} to={"/login"}><i className="fa-solid fa-arrow-right-to-bracket"></i> Login</Link>}</li>) : ""} 
-                        <li className="ms-2 me-2 nav-item d-none d-lg-block">
-                            <Link className={`${Style.iconBTN} text-decoration-none`} to={"/cart"}><i className="fa-solid fa-cart-shopping"></i>
-                                <span className={Style.cartBadge}>0</span>
-                            </Link>
+                        <li className="ms-2 me-2 nav-item d-none d-lg-block position-relative"
+                            onMouseEnter={() => setCartOpen(true)}
+                            onMouseLeave={() => { if (!cartOpen) setCartOpen(false); }}>
+                            <button className={`${Style.iconBTN}`} onClick={() => setCartOpen(!cartOpen)}>
+                                <i className="fa-solid fa-cart-shopping"></i>
+                                <span className={Style.cartBadge}>{cartCount}</span>
+                            </button>
+                            {cartOpen && <CartDropdown onClose={() => setCartOpen(false)} />}
                         </li>
                     </ul>
                 </div>
