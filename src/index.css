@@ -13,6 +13,14 @@
   --btnBorderColor: #DADDE4;
   --btnTextColor: #4B5261;
   --cardShadow: rgba(100, 100, 111, 0.2);
+  --dropdownBg: #ffffff;
+  --textPrimary: #111827;
+  --textSecondary: #6b7280;
+  --borderColor: #e5e7eb;
+  --imgBg: #f3f4f6;
+  --btnBg: #f3f4f6;
+  --subtotalBg: #f3f4f6;
+  --viewBtnBg: #e5e7eb;
 }
 
 [data-bs-theme="dark"] {
@@ -30,6 +38,14 @@
   --btnBorderColor: #606776;
   --btnTextColor: #DADDE4;
   --cardShadow: rgba(0, 0, 0, 0.4);
+  --dropdownBg: #151c2e;
+  --textPrimary: #ffffff;
+  --textSecondary: #8892a4;
+  --borderColor: #1e2a3a;
+  --imgBg: #1e2a3a;
+  --btnBg: #1e2a3a;
+  --subtotalBg: #1e2a3a;
+  --viewBtnBg: #2a3a4a;
 }
 
 body {
@@ -55,4 +71,15 @@ code {
   position: sticky;
   top: 0;
   z-index: 999;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

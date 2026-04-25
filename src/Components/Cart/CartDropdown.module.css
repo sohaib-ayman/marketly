@@ -1,0 +1,158 @@
+.cartDropdown {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 420px;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  background: var(--dropdownBg);
+}
+
+.cartDropdownTitle {
+  font-weight: 700;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--textPrimary);
+}
+
+.cartDropdownIcon {
+  color: #4f8ef7;
+}
+
+.cartEmptyText {
+  text-align: center;
+  padding: 20px 0;
+  color: var(--textSecondary);
+}
+
+.cartItemRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--borderColor);
+}
+
+.cartItemImg {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: var(--imgBg);
+}
+
+.cartProductTitle {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 4px;
+  color: var(--textPrimary);
+}
+
+.cartProductPrice {
+  color: #4f8ef7;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.cartQtyControl {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cartQtyBtn {
+  border: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 11px;
+  background: var(--btnBg);
+  color: var(--textPrimary);
+  transition: 0.2s;
+}
+
+.cartQtySpan {
+  font-size: 14px;
+  color: var(--textPrimary);
+}
+
+.cartRemoveBtn {
+  background: transparent;
+  border: none;
+  color: #e74c3c;
+  cursor: pointer;
+  margin-left: 4px;
+  transition: transform 0.25s ease;
+}
+
+.cartRemoveBtn:hover {
+  transform: scale(1.15);
+}
+
+.cartItemTotal {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--textPrimary);
+}
+
+.cartMoreItems {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  color: #4f8ef7;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.cartSubtotalBox {
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  background: var(--subtotalBg);
+}
+
+.cartSubtotalLabel {
+  font-weight: 600;
+  color: var(--textPrimary);
+}
+
+.cartSubtotalPrice {
+  color: #4f8ef7;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.cartViewBtn {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: 10px;
+  background: var(--viewBtnBg);
+  color: var(--textPrimary);
+  transition: 0.2s;
+}
+
+.cartCheckoutBtn {
+  display: block;
+  text-align: center;
+  background: linear-gradient(90deg, #6c5ce7, #4fc3f7);
+  color: #ffffff;
+  padding: 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+}
