@@ -17,6 +17,7 @@ export default function Navbar() {
     let navigate = useNavigate();
     let [isOpen, setIsOpen] = useState(false);
     let [cartOpen, setCartOpen] = useState(false);
+    let [cartVisible, setCartVisible] = useState(false);
     let [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     let location = useLocation();
     let isAdmin = user?.email === "admin@admin.com";
@@ -110,18 +111,20 @@ export default function Navbar() {
                         {(!isLoggedIn) ? (
                             <li className="nav-item">{loading ? <button className={`btn ${Style.userLoading} d-flex justify-content-center align-items-center gap-2`}><BeatLoader color={color} size={10} /></button> : <Link className={`btn ${Style.loginBTN} text-white w-100 d-flex justify-content-center align-items-center gap-2 mt-3 mt-md-0`} to={"/login"}><i className="fa-solid fa-arrow-right-to-bracket"></i> Login</Link>}</li>) : ""} 
                      <li className="ms-2 me-2 nav-item d-none d-lg-block position-relative"
-                        onMouseEnter={() => setCartOpen(true)}
-                        onMouseLeave={() => setCartOpen(false)}>
-                        <Link to="/cart" className={`${Style.iconBTN}`} style={{ textDecoration: "none" }}>
-                         <i className="fa-solid fa-cart-shopping"></i>
-                         <span className={Style.cartBadge}>{cartCount}</span>
-                        </Link>
-                        {cartOpen && (
-                         <div onMouseEnter={() => setCartOpen(true)} onMouseLeave={() => setCartOpen(false)}>
-                           <CartDropdown onClose={() => setCartOpen(false)} />
+                      onMouseEnter={() => { setCartOpen(true); setCartVisible(true); }}
+                      onMouseLeave={() => { setCartVisible(false); setTimeout(() => setCartOpen(false), 300); }}>
+                      <Link to="/cart" className={`${Style.iconBTN}`} style={{ textDecoration: "none" }}>
+                        <i className="fa-solid fa-cart-shopping"></i>
+                        <span className={Style.cartBadge}>{cartCount}</span>
+                      </Link>
+                      {cartOpen && (
+                        <div onMouseEnter={() => { setCartVisible(true); }} 
+                          onMouseLeave={() => { setCartVisible(false); setTimeout(() => setCartOpen(false), 300); }}
+                          style={{ opacity: cartVisible ? 1 : 0, transition: "opacity 0.3s ease" }}>
+                         <CartDropdown onClose={() => { setCartVisible(false); setTimeout(() => setCartOpen(false), 300); }} />
                         </div>
-                      )}
-                    </li>
+                       )}
+                      </li>
                     </ul>
                 </div>
             </div>
