@@ -14,7 +14,7 @@ export default function DataContextProvider(props) {
     async function fetchData() {
         try {
             let [productsResult, categoriesResult] = await Promise.all([
-                axios.get("https://dummyjson.com/products"),
+                axios.get("https://dummyjson.com/products?limit=0"),
                 axios.get("https://dummyjson.com/products/categories"),
             ]);
 
