@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, updateQuantity } from "../../Store/cartSlice";
 import { Link } from "react-router-dom";
 import Style from "./CartDropdown.module.css";
+import { UserContext } from "../../Context/UserContext";
 
 export default function CartDropdown({ onClose }) {
   let dispatch = useDispatch();
   let items = useSelector(state => state.cart.items);
   let totalPrice = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  let { user } = useContext(UserContext);
+  let isLoggedIn = user && !user.isAnonymous;
 
   function handleQuantity(id, quantity) {
     if (quantity < 1) return;
@@ -62,7 +65,7 @@ export default function CartDropdown({ onClose }) {
             View Cart
           </Link>
           <Link to="/checkout" onClick={onClose} className={Style.cartCheckoutBtn}>
-            Login to Checkout
+            {isLoggedIn ? "Checkout" : "Login to Checkout"}
           </Link>
         </>
       )}
