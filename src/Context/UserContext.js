@@ -2,7 +2,7 @@ import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import { createContext, useEffect, useRef, useState } from "react";
 import { auth } from "../firebase";
 import { store } from "../Store/store";
-import { mergeCart } from "../Store/cartSlice";
+import { mergeCart, clearCart } from "../Store/cartSlice";
 
 export let UserContext = createContext();
 
@@ -17,6 +17,7 @@ export default function UserContextProvider(props) {
                 if (!currentUser.isAnonymous && previousUser.current?.isAnonymous) {
                     let guestCart = store.getState().cart.items;
                     if (guestCart.length > 0) {
+                        store.dispatch(clearCart());
                         store.dispatch(mergeCart(guestCart));
                     }
                 }
