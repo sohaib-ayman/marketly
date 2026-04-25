@@ -7,7 +7,6 @@ import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
 import { BeatLoader } from "react-spinners";
 import { DataContext } from "../../Context/DataContext";
-
 import CartDropdown from "../Cart/CartDropdown";
 import { useSelector } from "react-redux";
 
@@ -110,15 +109,19 @@ export default function Navbar() {
 
                         {(!isLoggedIn) ? (
                             <li className="nav-item">{loading ? <button className={`btn ${Style.userLoading} d-flex justify-content-center align-items-center gap-2`}><BeatLoader color={color} size={10} /></button> : <Link className={`btn ${Style.loginBTN} text-white w-100 d-flex justify-content-center align-items-center gap-2 mt-3 mt-md-0`} to={"/login"}><i className="fa-solid fa-arrow-right-to-bracket"></i> Login</Link>}</li>) : ""} 
-                        <li className="ms-2 me-2 nav-item d-none d-lg-block position-relative"
-                            onMouseEnter={() => setCartOpen(true)}
-                            onMouseLeave={() => { if (!cartOpen) setCartOpen(false); }}>
-                            <button className={`${Style.iconBTN}`} onClick={() => setCartOpen(!cartOpen)}>
-                                <i className="fa-solid fa-cart-shopping"></i>
-                                <span className={Style.cartBadge}>{cartCount}</span>
-                            </button>
-                            {cartOpen && <CartDropdown onClose={() => setCartOpen(false)} />}
-                        </li>
+                     <li className="ms-2 me-2 nav-item d-none d-lg-block position-relative"
+                        onMouseEnter={() => setCartOpen(true)}
+                        onMouseLeave={() => setCartOpen(false)}>
+                        <Link to="/cart" className={`${Style.iconBTN}`} style={{ textDecoration: "none" }}>
+                         <i className="fa-solid fa-cart-shopping"></i>
+                         <span className={Style.cartBadge}>{cartCount}</span>
+                        </Link>
+                        {cartOpen && (
+                         <div onMouseEnter={() => setCartOpen(true)} onMouseLeave={() => setCartOpen(false)}>
+                           <CartDropdown onClose={() => setCartOpen(false)} />
+                        </div>
+                      )}
+                    </li>
                     </ul>
                 </div>
             </div>

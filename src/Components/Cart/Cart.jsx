@@ -40,7 +40,10 @@ export default function Cart() {
   let hrStyle = { borderColor: isLight ? "#e5e7eb" : "#2a3a4a" };
 
   function handleQuantity(id, quantity) {
-    if (quantity < 1) return;
+   if (quantity < 1) {
+      dispatch(removeFromCart(id));
+      return;
+    }
     dispatch(updateQuantity({ id, quantity }));
   }
 
