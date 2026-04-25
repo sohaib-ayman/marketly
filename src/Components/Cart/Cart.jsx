@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, updateQuantity, clearCart } from "../../Store/cartSlice";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../../Context/ThemeContext";
+import { UserContext } from "../../Context/UserContext";
 
 export default function Cart() {
   let dispatch = useDispatch();
@@ -12,7 +13,8 @@ export default function Cart() {
   let { theme } = useContext(ThemeContext);
   let isLight = theme === "light";
   let [confirmId, setConfirmId] = useState(null);
-
+  let { user } = useContext(UserContext);
+  let isLoggedIn = user && !user.isAnonymous;
   let totalPrice = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   let cardStyle = {
@@ -111,7 +113,9 @@ export default function Cart() {
               <strong style={{ color: isLight ? "#111827" : "#ffffff" }}>Total</strong>
               <strong style={{ color: "#4f8ef7", fontSize: "20px" }}>${totalPrice.toFixed(2)}</strong>
             </div>
-            <Link to="/checkout" className={Style.checkoutBtn}>Login to Checkout</Link>
+            <Link to="/checkout" className={Style.checkoutBtn}>
+              {isLoggedIn ? "Proceed to Checkout" : "Login to Checkout"}
+            </Link>
             <Link to="/" className={Style.continueLink}>Continue Shopping</Link>
           </div>
         </div>
