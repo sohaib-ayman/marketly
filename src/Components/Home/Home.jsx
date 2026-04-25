@@ -14,9 +14,9 @@ export default function Home() {
     let sectionRef = useRef(null);
     let navigate = useNavigate();
     let [start] = useState(() => Math.floor(Math.random() * (products.length > 12 ? products.length - 12 : 0)));
-    let featuredProducts = products.slice(start, start + 8);
+    let featuredCategorySlugs = categories.map(category => category.slug);
+    let featuredProducts = products.filter(product => featuredCategorySlugs.includes(product.category)).sort(() => Math.random() - 0.5).slice(0, 8);
     let dispatch = useDispatch();
-
     let [toast, setToast] = useState(null);
 
     return <>
@@ -43,7 +43,7 @@ export default function Home() {
                             <div className={Style.categoryInfo}>
                                 <h3>{category.name}</h3>
                                 <p className="mt-2 mb-0">
-                                    {counts[category.id] || 0} products
+                                    {counts[category.slug] || 0} products
                                 </p>
                             </div>
                         </div>

@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
+import { categoryImages } from "../categoryImages";
 
 export let DataContext = createContext();
 
@@ -13,24 +14,37 @@ export default function DataContextProvider(props) {
     async function fetchData() {
         try {
             let [productsResult, categoriesResult] = await Promise.all([
-                axios.get("https://api.escuelajs.co/api/v1/products"),
-                axios.get("https://api.escuelajs.co/api/v1/categories"),
+                axios.get("https://dummyjson.com/products"),
+                axios.get("https://dummyjson.com/products/categories"),
             ]);
 
-            let productsData = productsResult.data;
-            let categoriesData = categoriesResult.data;
+            let productsData = productsResult.data.products;
+            let rawCategories = categoriesResult.data;
+
+            let featuredSlugs = ["beauty", "fragrances", "furniture", "groceries", "smartphones",];
+
+            let formattedCategories = rawCategories
+                .filter((cat) => featuredSlugs.includes(cat.slug))
+                .map((cat, index) => ({
+                    id: index + 1,
+                    slug: cat.slug,
+                    name: cat.name,
+                    image: categoryImages[cat.slug],
+                }));
 
             let productsCounter = {};
+
             productsData.forEach((product) => {
-                let CategoryID = product.category.id;
-                productsCounter[CategoryID] = (productsCounter[CategoryID] || 0) + 1;
+                productsCounter[product.category] =
+                    (productsCounter[product.category] || 0) + 1;
             });
 
             setProducts(productsData);
-            setCategories(categoriesData.slice(0, 5));
+            setCategories(formattedCategories);
             setCounts(productsCounter);
         } catch (err) {
             toast.error("Something went wrong");
+            console.error(err);
         } finally {
             setLoading(false);
         }
