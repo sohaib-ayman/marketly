@@ -15,7 +15,18 @@ export default function Home() {
     let navigate = useNavigate();
     let [start] = useState(() => Math.floor(Math.random() * (products.length > 12 ? products.length - 12 : 0)));
     let featuredCategorySlugs = categories.map(category => category.slug);
-    let featuredProducts = products.filter(product => featuredCategorySlugs.includes(product.category)).sort(() => Math.random() - 0.5).slice(0, 8);
+    const [featuredProducts, setFeaturedProducts] = useState([]);
+
+    useEffect(() => {
+        if (products.length > 0) {
+            const shuffled = [...products]
+                .filter(product => featuredCategorySlugs.includes(product.category))
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 8);
+
+            setFeaturedProducts(shuffled);
+        }
+    }, [products]);
     let dispatch = useDispatch();
     let [toast, setToast] = useState(null);
 
@@ -65,13 +76,13 @@ export default function Home() {
                                 <button className={Style.addBtn} onClick={(e) => {
                                     e.stopPropagation();
                                     dispatch(addToCart({
-                                    id: product.id,
-                                    title: product.title,
-                                    price: product.price,
-                                    image: product.images[0],
-                                 }));
-                                 setToast(product.title);
-                                 setTimeout(() => setToast(null), 3000);
+                                        id: product.id,
+                                        title: product.title,
+                                        price: product.price,
+                                        image: product.images[0],
+                                    }));
+                                    setToast(product.title);
+                                    setTimeout(() => setToast(null), 3000);
                                 }}>
                                     <i className="fa-solid fa-cart-shopping"></i> Add to Cart
                                 </button>
@@ -85,10 +96,10 @@ export default function Home() {
             </div>
         </div>
         {toast && (
-          <div style={{ position: "fixed", top: "20px", right: "20px", background: "#1e2a3a", color: "#ffffff", padding: "14px 20px", borderRadius: "12px", display: "flex", alignItems: "center", gap: "10px", zIndex: 9999, boxShadow: "0 4px 20px rgba(0,0,0,0.3)", fontSize: "14px", fontWeight: "500", animation: "slideDown 0.3s ease" }}>
-           <i className="fa-solid fa-circle-check" style={{ color: "#2ecc71" }}></i>
-           {toast} added to cart!
-         </div>
-    )}
+            <div style={{ position: "fixed", top: "20px", right: "20px", background: "#1e2a3a", color: "#ffffff", padding: "14px 20px", borderRadius: "12px", display: "flex", alignItems: "center", gap: "10px", zIndex: 9999, boxShadow: "0 4px 20px rgba(0,0,0,0.3)", fontSize: "14px", fontWeight: "500", animation: "slideDown 0.3s ease" }}>
+                <i className="fa-solid fa-circle-check" style={{ color: "#2ecc71" }}></i>
+                {toast} added to cart!
+            </div>
+        )}
     </>
 }

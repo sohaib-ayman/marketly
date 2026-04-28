@@ -105,7 +105,7 @@
 }
 
 .navLink {
-    padding: 0 8px; /* optional لتحسين مساحة الهوفر */
+    padding: 0 8px;
 }
 
 .categoryLink {
@@ -116,7 +116,6 @@
     transition: color 0.3s ease;
 }
 
-/* 👇 hover على الأب */
 .navLink:hover .categoryLink {
     color: var(--nav-text-active);
 }
@@ -136,7 +135,6 @@
     width: 100%;
 }
 
-/* active */
 .categoryLink.activeCategory {
     color: var(--nav-text-active);
 }
@@ -169,7 +167,11 @@
 }
 
 .iconBTN i {
-    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
 }
 
 .cartBadge {

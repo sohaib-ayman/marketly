@@ -24,7 +24,7 @@ export default function Navbar() {
     let isLoggedIn = user && !user.isAnonymous;
     let [loggingOut, setLoggingOut] = useState(false);
     let { categories } = useContext(DataContext);
-    
+
     let cartItems = useSelector(state => state.cart.items);
     let cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -77,11 +77,11 @@ export default function Navbar() {
                         <li><Link className={`nav-link ${Style.navLink} ms-2 me-2`} to="/"><span className={`${Style.categoryLink} ${location.pathname === "/" ? Style.activeCategory : ""}`}>Home</span></Link></li>
                         {categories.map((Category) => (
                             <li key={Category.id}><Link to={`/${Category.slug}`} className={`nav-link ${Style.navLink} ms-2 me-2`}>
-                                    <span className={`${Style.categoryLink} ${location.pathname.startsWith(`/${Category.slug}`)? Style.activeCategory : ""}`}> {Category.name} </span>
-                                </Link>
+                                <span className={`${Style.categoryLink} ${location.pathname.startsWith(`/${Category.slug}`) ? Style.activeCategory : ""}`}> {Category.name} </span>
+                            </Link>
                             </li>
                         ))}
-                        <li><Link to="/track-order" className={`nav-link ${Style.navLink} ms-2 me-2`}><span className={`${Style.categoryLink} ${location.pathname.includes("/track-order")? Style.activeCategory: ""}`}>Track Order</span></Link></li>
+                        <li><Link to="/track-order" className={`nav-link ${Style.navLink} ms-2 me-2`}><span className={`${Style.categoryLink} ${location.pathname.includes("/track-order") ? Style.activeCategory : ""}`}>Track Order</span></Link></li>
                     </ul>
 
                     <ul className="navbar-nav mb-2 mb-lg-0">
@@ -109,22 +109,22 @@ export default function Navbar() {
                         )}
 
                         {(!isLoggedIn) ? (
-                            <li className="nav-item">{loading ? <button className={`btn ${Style.userLoading} d-flex justify-content-center align-items-center gap-2`}><BeatLoader color={color} size={10} /></button> : <Link className={`btn ${Style.loginBTN} text-white w-100 d-flex justify-content-center align-items-center gap-2 mt-3 mt-md-0`} to={"/login"}><i className="fa-solid fa-arrow-right-to-bracket"></i> Login</Link>}</li>) : ""} 
-                     <li className="ms-2 me-2 nav-item d-none d-lg-block position-relative"
-                      onMouseEnter={() => { setCartOpen(true); setCartVisible(true); }}
-                      onMouseLeave={() => { setCartVisible(false); setTimeout(() => setCartOpen(false), 300); }}>
-                      <Link to="/cart" className={`${Style.iconBTN}`} style={{ textDecoration: "none" }}>
-                        <i className="fa-solid fa-cart-shopping"></i>
-                        <span className={Style.cartBadge}>{cartCount}</span>
-                      </Link>
-                      {cartOpen && (
-                        <div onMouseEnter={() => { setCartVisible(true); }} 
-                          onMouseLeave={() => { setCartVisible(false); setTimeout(() => setCartOpen(false), 300); }}
-                          style={{ opacity: cartVisible ? 1 : 0, transition: "opacity 0.3s ease" }}>
-                         <CartDropdown onClose={() => { setCartVisible(false); setTimeout(() => setCartOpen(false), 300); }} />
-                        </div>
-                       )}
-                      </li>
+                            <li className="nav-item">{loading ? <button className={`btn ${Style.userLoading} d-flex justify-content-center align-items-center gap-2`}><BeatLoader color={color} size={10} /></button> : <Link className={`btn ${Style.loginBTN} text-white w-100 d-flex justify-content-center align-items-center gap-2 mt-3 mt-md-0`} to={"/login"}><i className="fa-solid fa-arrow-right-to-bracket"></i> Login</Link>}</li>) : ""}
+                        <li className="ms-2 me-2 nav-item d-none d-lg-block position-relative"
+                            onMouseEnter={() => { setCartOpen(true); setCartVisible(true); }}
+                            onMouseLeave={() => { setCartVisible(false); setTimeout(() => setCartOpen(false), 300); }}>
+                            <Link to="/cart" className={`${Style.iconBTN}`} style={{ textDecoration: "none" }}>
+                                <i className="fa-solid fa-cart-shopping"></i>
+                                <span className={Style.cartBadge}>{cartCount}</span>
+                            </Link>
+                            {cartOpen && (
+                                <div onMouseEnter={() => { setCartVisible(true); }}
+                                    onMouseLeave={() => { setCartVisible(false); setTimeout(() => setCartOpen(false), 300); }}
+                                    style={{ opacity: cartVisible ? 1 : 0, transition: "opacity 0.3s ease" }}>
+                                    <CartDropdown onClose={() => { setCartVisible(false); setTimeout(() => setCartOpen(false), 300); }} />
+                                </div>
+                            )}
+                        </li>
                     </ul>
                 </div>
             </div>

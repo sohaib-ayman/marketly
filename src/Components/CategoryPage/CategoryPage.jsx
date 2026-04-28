@@ -4,6 +4,8 @@ import HomeStyle from '../Home/Home.module.css'
 import { useParams } from "react-router-dom";
 import { DataContext } from "../../Context/DataContext";
 import { Helmet } from "react-helmet-async";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../Store/cartSlice";
 
 export default function CategoryPage() {
     let { categorySlug } = useParams();
@@ -14,6 +16,9 @@ export default function CategoryPage() {
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(1000);
     const [showFilters, setShowFilters] = useState(false);
+    let [toast, setToast] = useState(null);
+    let dispatch = useDispatch();
+
     let categoryProducts = products.filter(
         product =>
             product.category === categorySlug &&
@@ -79,7 +84,7 @@ export default function CategoryPage() {
 
             {showFilters && (
                 <div className={Style.filterPanel}>
-                            
+
                     <p>
                         Price Range: ${minPrice} - ${maxPrice}
                     </p>
@@ -129,7 +134,17 @@ export default function CategoryPage() {
                                         ${product.price}
                                     </span>
 
-                                    <button className={HomeStyle.addBtn}>
+                                    <button className={HomeStyle.addBtn} onClick={(e) => {
+                                        e.stopPropagation();
+                                        dispatch(addToCart({
+                                            id: product.id,
+                                            title: product.title,
+                                            price: product.price,
+                                            image: product.images[0],
+                                        }));
+                                        setToast(product.title);
+                                        setTimeout(() => setToast(null), 3000);
+                                    }}>
                                         Add To Cart
                                     </button>
 
@@ -149,5 +164,11 @@ export default function CategoryPage() {
 
             </div>
         </div>
+        {toast && (
+            <div style={{ position: "fixed", top: "20px", right: "20px", background: "#1e2a3a", color: "#ffffff", padding: "14px 20px", borderRadius: "12px", display: "flex", alignItems: "center", gap: "10px", zIndex: 9999, boxShadow: "0 4px 20px rgba(0,0,0,0.3)", fontSize: "14px", fontWeight: "500", animation: "slideDown 0.3s ease" }}>
+                <i className="fa-solid fa-circle-check" style={{ color: "#2ecc71" }}></i>
+                {toast} added to cart!
+            </div>
+        )}
     </>
 }
