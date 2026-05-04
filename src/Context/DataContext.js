@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
-import axios from "axios";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 import toast from "react-hot-toast";
-import { categoryImages } from "../categoryImages";
 
 export let DataContext = createContext();
 
@@ -13,37 +13,27 @@ export default function DataContextProvider(props) {
 
     async function fetchData() {
         try {
-            let [productsResult, categoriesResult] = await Promise.all([
-                axios.get("https://dummyjson.com/products?limit=0"),
-                axios.get("https://dummyjson.com/products/categories"),
+            const [productsSnap, categoriesSnap] = await Promise.all([
+                getDocs(collection(db, "products")),
+                getDocs(collection(db, "categories"))
             ]);
 
-            let productsData = productsResult.data.products;
-            let rawCategories = categoriesResult.data;
-
-            let featuredSlugs = ["beauty", "fragrances", "furniture", "groceries", "smartphones",];
-
-            let formattedCategories = rawCategories
-                .filter((cat) => featuredSlugs.includes(cat.slug))
-                .map((cat, index) => ({
-                    id: index + 1,
-                    slug: cat.slug,
-                    name: cat.name,
-                    image: categoryImages[cat.slug],
-                }));
+            let productsData = productsSnap.docs.map(doc => doc.data());
+            let categoriesData = categoriesSnap.docs.map(doc => doc.data());
 
             let productsCounter = {};
 
-            productsData.forEach((product) => {
+            productsData.forEach(product => {
                 productsCounter[product.category] =
                     (productsCounter[product.category] || 0) + 1;
             });
 
             setProducts(productsData);
-            setCategories(formattedCategories);
+            setCategories(categoriesData);
             setCounts(productsCounter);
+
         } catch (err) {
-            toast.error("Something went wrong");
+            toast.error("Failed to load data");
             console.error(err);
         } finally {
             setLoading(false);
@@ -55,7 +45,13 @@ export default function DataContextProvider(props) {
     }, []);
 
     return (
-        <DataContext.Provider value={{ products, categories, counts, loading }}>
+        <DataContext.Provider value={{
+            products,
+            setProducts,
+            categories,
+            counts,
+            loading
+        }}>
             {props.children}
         </DataContext.Provider>
     );

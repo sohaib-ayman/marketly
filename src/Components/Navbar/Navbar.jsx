@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Style from './Navbar.module.css'
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 
 export default function Navbar() {
     let [color, setColor] = useState("#ffffff");
-    let { user, loading } = useContext(UserContext);
+    let { user, loading, role } = useContext(UserContext);
     let { theme, toggleTheme } = useContext(ThemeContext);
     let navigate = useNavigate();
     let [isOpen, setIsOpen] = useState(false);
@@ -20,14 +20,28 @@ export default function Navbar() {
     let [cartVisible, setCartVisible] = useState(false);
     let [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     let location = useLocation();
-    let isAdmin = user?.email === "admin@admin.com";
+    let isAdmin = role === "admin";
     let isLoggedIn = user && !user.isAnonymous;
     let [loggingOut, setLoggingOut] = useState(false);
     let { categories } = useContext(DataContext);
 
     let cartItems = useSelector(state => state.cart.items);
     let cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+    let cartTimeoutRef = useRef(null);
 
+    function openCartDropdown() {
+        clearTimeout(cartTimeoutRef.current);
+        setCartOpen(true);
+        setCartVisible(true);
+    }
+
+    function closeCartDropdown() {
+        setCartVisible(false);
+
+        cartTimeoutRef.current = setTimeout(() => {
+            setCartOpen(false);
+        }, 300);
+    }
     useEffect(() => {
         let handleResize = () => {
             setIsMobile(window.innerWidth < 768);
@@ -110,18 +124,30 @@ export default function Navbar() {
 
                         {(!isLoggedIn) ? (
                             <li className="nav-item">{loading ? <button className={`btn ${Style.userLoading} d-flex justify-content-center align-items-center gap-2`}><BeatLoader color={color} size={10} /></button> : <Link className={`btn ${Style.loginBTN} text-white w-100 d-flex justify-content-center align-items-center gap-2 mt-3 mt-md-0`} to={"/login"}><i className="fa-solid fa-arrow-right-to-bracket"></i> Login</Link>}</li>) : ""}
-                        <li className="ms-2 me-2 nav-item d-none d-lg-block position-relative"
-                            onMouseEnter={() => { setCartOpen(true); setCartVisible(true); }}
-                            onMouseLeave={() => { setCartVisible(false); setTimeout(() => setCartOpen(false), 300); }}>
-                            <Link to="/cart" className={`${Style.iconBTN}`} style={{ textDecoration: "none" }}>
+                        <li
+                            className="ms-2 me-2 nav-item d-none d-lg-block position-relative"
+                            onMouseEnter={openCartDropdown}
+                            onMouseLeave={closeCartDropdown}
+                        >
+                            <Link
+                                to="/cart"
+                                className={Style.iconBTN}
+                                style={{ textDecoration: "none" }}
+                            >
                                 <i className="fa-solid fa-cart-shopping"></i>
                                 <span className={Style.cartBadge}>{cartCount}</span>
                             </Link>
+
                             {cartOpen && (
-                                <div onMouseEnter={() => { setCartVisible(true); }}
-                                    onMouseLeave={() => { setCartVisible(false); setTimeout(() => setCartOpen(false), 300); }}
-                                    style={{ opacity: cartVisible ? 1 : 0, transition: "opacity 0.3s ease" }}>
-                                    <CartDropdown onClose={() => { setCartVisible(false); setTimeout(() => setCartOpen(false), 300); }} />
+                                <div
+                                    onMouseEnter={openCartDropdown}
+                                    onMouseLeave={closeCartDropdown}
+                                    style={{
+                                        opacity: cartVisible ? 1 : 0,
+                                        transition: "opacity 0.3s ease"
+                                    }}
+                                >
+                                    <CartDropdown onClose={closeCartDropdown} />
                                 </div>
                             )}
                         </li>

@@ -21,6 +21,13 @@
   --btnBg: #f3f4f6;
   --subtotalBg: #f3f4f6;
   --viewBtnBg: #e5e7eb;
+  --priceTagBgColor: #ffffff;
+  --priceTagBorderColor: #e5e7eb;
+  --tableHeadBgColor: #f9fafb;
+  --adminBadgeBgColor: #f3e8ff;
+  --adminBadgeTextColor: #6e11b0;
+  --userBadgeBgColor: #dbfce7;
+  --userBadgeTextColor: #016630;
 }
 
 [data-bs-theme="dark"] {
@@ -46,14 +53,21 @@
   --btnBg: #1e2a3a;
   --subtotalBg: #1e2a3a;
   --viewBtnBg: #2a3a4a;
+  --priceTagBgColor: rgba(255, 255, 255, 0.08);
+  --priceTagBorderColor: rgba(255, 255, 255, 0.12);
+  --tableHeadBgColor: #364153;
+  --adminBadgeBgColor: #59168b;
+  --adminBadgeTextColor: #e9d4ff;
+  --userBadgeBgColor: #0d542b;
+  --userBadgeTextColor: #b9f8cf;
 }
 
 body {
   background-color: var(--pageBgColor);
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

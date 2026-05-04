@@ -4,6 +4,7 @@ import Home from './Components/Home/Home';
 import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import Auth from './Components/Auth/Auth';
+import GuestOnly from './Components/GuestOnly/GuestOnly';
 import NotFound from './Components/NotFound/NotFound';
 import TrackOrder from './Components/TrackOrder/TrackOrder';
 import Checkout from './Components/Checkout/Checkout';
@@ -24,8 +25,8 @@ function App() {
     {
       path: '', element: <Layout/>, children: [
         { index: true, element: <Home/>},
-        { path: 'login', element: <Login/>},
-        { path: 'register', element: <Register/>},
+        { path: 'login', element: <GuestOnly><Login/></GuestOnly>},
+        { path: 'register', element: <GuestOnly><Register/></GuestOnly>},
         { path: 'track-order', element:<TrackOrder/>},
         { path: 'checkout', element:<Auth><Checkout/></Auth>},
         { path: 'cart', element:<Cart/>},

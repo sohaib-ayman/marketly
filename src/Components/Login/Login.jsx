@@ -1,4 +1,4 @@
-import React, { useState, CSSProperties } from "react";
+import React, { useState, CSSProperties, useContext, useEffect, useRef } from "react";
 import Style from './Login.module.css'
 import { PulseLoader } from "react-spinners"
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -8,7 +8,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import { Helmet } from "react-helmet-async";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
 
 export default function Login() {
@@ -17,7 +17,9 @@ export default function Login() {
     let navigate = useNavigate();
     let [error, setError] = useState(null);
     let location = useLocation();
-    let from = location.state?.from;
+    const fromRef = useRef(location.state?.from?.pathname || "/");
+    const hasRedirected = useRef(false);
+    let { user, loading } = useContext(UserContext);
 
     async function handleGuestLogin() {
         try {
@@ -38,13 +40,12 @@ export default function Login() {
                 values.password
             );
 
-            if (from) {
+            if (fromRef.current !== "/") {
                 toast.success("You're in! Continue your checkout");
+                navigate(fromRef.current, { replace: true });
             } else {
                 toast.success(`Welcome back, ${userCred.user.displayName || "User"}!`);
             }
-
-            navigate(from || "/");
 
         } catch (err) {
             let message = getFirebaseErrorMessage(err.code);
@@ -56,7 +57,7 @@ export default function Login() {
 
     let validationSchema = Yup.object({
         email: Yup.string().email('Enter a valid email').required('Email is required'),
-        password: Yup.string().matches(/^[A-Za-z0-9]{8,15}$/, 'Password must be more than 8 characters').required('Password is required'),
+        password: Yup.string().matches(/^[A-Za-z0-9]{6,15}$/, 'Password must be more than 6 characters').required('Password is required'),
     })
 
     let formik = useFormik({
@@ -100,7 +101,7 @@ export default function Login() {
                         </div>
                         {(isLoading) ? <button disabled className={`${Style.loginBTN} text-white mt-5 mb-4 w-100 d-flex justify-content-center align-items-center`} type="button"><PulseLoader color={color} size={10} /></button> : <button disabled={!(formik.isValid && formik.dirty)} type="submit" className={`btn ${Style.loginBTN} text-white mt-5 mb-4 w-100`}>Sign In</button>}
                         <p className={Style.dividerText}>New to Marketly?</p>
-                        <Link type="button" className={`btn w-100 d-flex justify-content-center align-items-center ${Style.registerBTN}`} to={'/register'} state={{ from }}>Create New Account</Link>
+                        <Link type="button" className={`btn w-100 d-flex justify-content-center align-items-center ${Style.registerBTN}`} to={'/register'} state={{ from: { pathname: fromRef.current } }}>Create New Account</Link>
                         <button type="button" className={` mt-3 link-primary link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover bg-transparent border-0 ${Style.loginGuest}`} onClick={handleGuestLogin}>Continue as Guest →</button>
                     </div>
                 </form>

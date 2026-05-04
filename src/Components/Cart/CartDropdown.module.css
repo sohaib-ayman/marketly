@@ -10,6 +10,15 @@
   background: var(--dropdownBg);
 }
 
+.cartDropdown::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 0;
+  width: 100%;
+  height: 12px;
+}
+
 .cartDropdownTitle {
   font-weight: 700;
   margin-bottom: 16px;
@@ -76,6 +85,9 @@
   background: var(--btnBg);
   color: var(--textPrimary);
   transition: 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cartQtySpan {

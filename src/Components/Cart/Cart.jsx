@@ -33,26 +33,28 @@ export default function Cart() {
   let productTitleStyle = { color: isLight ? "#111827" : "#ffffff", fontSize: "16px", fontWeight: "600", marginBottom: "4px" };
   let priceStyle = { color: isLight ? "#6b7280" : "#8892a4", fontSize: "14px", marginBottom: "12px" };
   let imgStyle = { width: "100px", height: "100px", objectFit: "contain", borderRadius: "8px", background: isLight ? "#f3f4f6" : "#1e2a3a" };
-  let qtyBtnStyle = { background: isLight ? "#f3f4f6" : "#1e2a3a", border: isLight ? "1px solid #e5e7eb" : "none", color: isLight ? "#111827" : "#ffffff", width: "32px", height: "32px", borderRadius: "6px", cursor: "pointer", fontSize: "12px" };
+  let qtyBtnStyle = { background: isLight ? "#f3f4f6" : "#1e2a3a", border: isLight ? "1px solid #e5e7eb" : "none", color: isLight ? "#111827" : "#ffffff", width: "32px", height: "32px", borderRadius: "6px", cursor: "pointer", fontSize: "12px", display: "flex", alignItems: "center", justifyContent: "center"};
   let qtySpanStyle = { color: isLight ? "#111827" : "#ffffff", fontSize: "16px", minWidth: "20px", textAlign: "center" };
   let itemTotalStyle = { color: isLight ? "#111827" : "#ffffff", fontSize: "18px", fontWeight: "700" };
   let summaryStyle = { background: isLight ? "#ffffff" : "#151c2e", border: isLight ? "1px solid #e5e7eb" : "none", boxShadow: isLight ? "0 2px 12px rgba(0,0,0,0.06)" : "none", borderRadius: "12px", padding: "24px" };
   let summaryTitleStyle = { color: isLight ? "#111827" : "#ffffff", fontSize: "20px", fontWeight: "700" };
   let summaryRowStyle = { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px", color: isLight ? "#6b7280" : "#8892a4" };
   let hrStyle = { borderColor: isLight ? "#e5e7eb" : "#2a3a4a" };
-
+  let cartUserId = user?.isAnonymous ? "guest" : user?.uid;
+  
   function handleQuantity(id, quantity) {
-   if (quantity < 1) {
-      dispatch(removeFromCart(id));
+    if (quantity < 1) {
+      dispatch(removeFromCart({id, userId:cartUserId}));
       return;
     }
-    dispatch(updateQuantity({ id, quantity }));
+    dispatch(updateQuantity({id, quantity, userId:cartUserId}));
   }
 
   if (items.length === 0) {
     return <>
       <Helmet>
         <title>Your Cart | Marketly</title>
+        <meta name="description" content="Review the items in your shopping cart, update quantities, and proceed to secure checkout on Marketly."/>
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
       <div className={Style.emptyCart}>
@@ -129,7 +131,7 @@ export default function Cart() {
           <p style={{ color: isLight ? "#6b7280" : "#8892a4", marginBottom: "24px", whiteSpace: "normal" }}>Are you sure you want to remove this item from your cart?</p>
           <div style={{ display: "flex", gap: "12px", justifyContent: "flex-end" }}>
             <button onClick={() => setConfirmId(null)} style={{ background: isLight ? "#f3f4f6" : "#2a3a4a", border: "none", color: isLight ? "#111827" : "#ffffff", padding: "10px 20px", borderRadius: "8px", cursor: "pointer" }}>Cancel</button>
-            <button onClick={() => { dispatch(removeFromCart(confirmId)); setConfirmId(null); }} style={{ background: "#e74c3c", border: "none", color: "#ffffff", padding: "10px 20px", borderRadius: "8px", cursor: "pointer" }}>Remove</button>
+            <button onClick={() => { dispatch(removeFromCart({id:confirmId, userId:cartUserId})); setConfirmId(null); }} style={{ background: "#e74c3c", border: "none", color: "#ffffff", padding: "10px 20px", borderRadius: "8px", cursor: "pointer" }}>Remove</button>
           </div>
         </div>
       </div>

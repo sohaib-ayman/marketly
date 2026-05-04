@@ -128,7 +128,8 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: var(--cardBgColor);
+    background-color: var(--priceTagBgColor);
+    border: 1px solid var(--priceTagBorderColor);
     padding: 6px 12px;
     border-radius: 12px;
     font-weight: 600;

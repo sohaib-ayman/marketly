@@ -8,11 +8,13 @@ import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../Store/cartSlice";
+import { UserContext } from "../../Context/UserContext";
 
 export default function Home() {
     let { products, categories, counts, loading } = useContext(DataContext);
     let sectionRef = useRef(null);
     let navigate = useNavigate();
+    let { user } = useContext(UserContext);
     let [start] = useState(() => Math.floor(Math.random() * (products.length > 12 ? products.length - 12 : 0)));
     let featuredCategorySlugs = categories.map(category => category.slug);
     const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -68,7 +70,7 @@ export default function Home() {
             <div className="row justify-content-center gy-4">
                 {featuredProducts.map((product) => (
                     <div key={product.id} className="col-12 col-md-6 col-lg-3">
-                        <div className={Style.productCard} onClick={() => navigate(`/${product.category.slug}/${product.slug}-${product.id}`)}>
+                        <div className={Style.productCard} onClick={() => navigate(`/${product.category}/${product.slug}-${product.id}`)}>
                             <div className={Style.productImg}>
                                 <img src={product.images[0]} alt={product.title} />
                                 <span className={Style.price}>${product.price}</span>
@@ -76,10 +78,13 @@ export default function Home() {
                                 <button className={Style.addBtn} onClick={(e) => {
                                     e.stopPropagation();
                                     dispatch(addToCart({
-                                        id: product.id,
-                                        title: product.title,
-                                        price: product.price,
-                                        image: product.images[0],
+                                        userId: user.isAnonymous ? "guest" : user.uid,
+                                        product: {
+                                            id: product.id,
+                                            title: product.title,
+                                            price: product.price,
+                                            image: product.images[0],
+                                        }
                                     }));
                                     setToast(product.title);
                                     setTimeout(() => setToast(null), 3000);

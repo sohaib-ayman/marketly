@@ -1,0 +1,247 @@
+.addBtn, .submitBtn, .cancelTopBtn {
+    background: linear-gradient(135deg, #4f6ef7, #6c63ff, #3ed6c5);
+    color: white;
+    border: none;
+    padding: 14px 13px;
+    border-radius: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.cancelTopBtn span, .addBtn span{
+    font-size: 0.8rem;
+}
+
+.addBtn:hover, .submitBtn:hover, .cancelTopBtn:hover {
+    transform: scale(1.01) translateY(-2px);
+    box-shadow:
+        0 12px 30px rgba(91,95,255,.3),
+        0 6px 15px rgba(56,189,248,.2);
+}
+
+
+.cancelBtn {
+    background: transparent;
+    border: 1px solid var(--btnBorderColor);
+    color: var(--textColor);
+    padding: 12px 20px;
+    border-radius: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.addForm,
+.panel,
+.modal {
+    background-color: var(--cardBgColor);
+    border-radius: 22px;
+    box-shadow: rgba(0,0,0,.18) 0 8px 24px;
+}
+
+.addForm {
+    padding: 32px;
+    margin-bottom: 30px;
+}
+
+.addForm h3,
+.modalHeader h3 {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--textColor);
+}
+
+.formGrid,
+.modalGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    margin-bottom: 22px;
+}
+
+.addForm input,
+.addForm select,
+.addForm textarea,
+.modal input,
+.modal select,
+.modal textarea,
+.searchInput {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 14px;
+    border: 1px solid var(--btnBorderColor);
+    background-color: var(--pageBgColor);
+    color: var(--textColor);
+    outline: none;
+}
+
+.searchInput {
+    margin: 20px;
+    width: calc(100% - 40px);
+}
+
+.tableWrapper {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    padding: 20px 28px;
+    text-align: left;
+    background: var(--tableHeadBgColor);
+    color: var(--pColor);
+    font-size: 13px;
+}
+
+.table td {
+    padding-left: 28px;
+    padding-right: 28px;
+    border-top: 1px solid var(--tableHeadBgColor);
+    color: var(--textColor);
+}
+
+.table tr{
+    transition: all 0.3s ease-in-out;
+}
+
+.table tr:hover{
+    background-color: var(--tableHeadBgColor);
+}
+
+.productCell {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.productCell img {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 50%;
+    background: var(--pageBgColor);
+}
+
+.productCell span{
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.editBtn {
+    background: none;
+    border: none;
+    color: #4f6ef7;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 14px;
+}
+
+.deleteBtn {
+    background: none;
+    border: none;
+    color: #ef4444;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.confirmDelete{
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+.modal {
+    width: 820px;
+    max-width: 92%;
+    overflow: hidden;
+}
+
+.modalHeader,
+.modalFooter {
+    padding: 24px 30px;
+    border-bottom: 1px solid var(--btnBorderColor);
+}
+
+.modalFooter {
+    border-bottom: none;
+    border-top: 1px solid var(--btnBorderColor);
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.modalBody {
+    padding: 30px;
+}
+
+.closeBtn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: var(--pColor);
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .formGrid,
+    .modalGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .table {
+        min-width: 700px;
+    }
+
+    .modal {
+        width: 95%;
+    }
+
+    .modalHeader,
+    .modalBody,
+    .modalFooter {
+        padding: 20px;
+    }
+
+    .modalFooter {
+        flex-direction: column;
+    }
+
+    .modalFooter button,
+    .addBtn,
+    .submitBtn,
+    .cancelTopBtn {
+        width: 100%;
+    }
+
+    .addForm {
+        padding: 22px;
+    }
+
+    .addForm h3,
+    .modalHeader h3 {
+        font-size: 24px;
+    }
+}

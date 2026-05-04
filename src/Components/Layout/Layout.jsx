@@ -50,7 +50,7 @@ export default function Layout() {
         <Navbar />
         <Outlet></Outlet>
         <Toaster
-            position="bottom-right"
+            position="bottom-left"
             toastOptions={{
                 duration: 3000,
             }}

@@ -1,0 +1,153 @@
+.panel {
+    background-color: var(--cardBgColor);
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 8px 24px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    text-align: left;
+    padding-right: 28px;
+    padding-left: 28px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--pColor);
+    background-color: var(--tableHeadBgColor);
+}
+
+.table td {
+    padding-left: 28px;
+    padding-right: 28px;
+    border-top: 1px solid var(--tableHeadBgColor);
+    font-weight: 500;
+    color: var(--textColor);
+    font-size: 0.875rem;
+}
+
+.table tr{
+    transition: all 0.3s ease-in-out;
+}
+
+.table tr:hover{
+    background-color: var(--tableHeadBgColor);
+}
+
+.adminBadge {
+    background: var(--adminBadgeBgColor);
+    color: var(--adminBadgeTextColor);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.userBadge {
+    background: var(--userBadgeBgColor);
+    color: var(--userBadgeTextColor);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.deleteBtn {
+    background: none;
+    border: none;
+    color: #ef4444;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.deleteBtn:hover {
+    opacity: .75;
+}
+
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+.modal {
+    width: 420px;
+    max-width: 90%;
+    background: var(--cardBgColor);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: rgba(0,0,0,.25) 0px 20px 50px;
+}
+
+.modal h4 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: var(--textColor);
+}
+
+.modal p {
+    color: var(--pColor);
+    margin-bottom: 24px;
+}
+
+.modalActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.cancelBtn {
+    background: transparent;
+    border: 1px solid var(--btnBorderColor);
+    color: var(--textColor);
+    padding: 10px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.confirmBtn {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .panel {
+        overflow-x: auto;
+    }
+
+    .table {
+        min-width: 650px;
+    }
+
+    .table th,
+    .table td {
+        padding: 18px 20px;
+    }
+
+    .modal {
+        width: 92%;
+        padding: 22px;
+    }
+
+    .modalActions {
+        flex-direction: column;
+    }
+
+    .modalActions button {
+        width: 100%;
+    }
+}

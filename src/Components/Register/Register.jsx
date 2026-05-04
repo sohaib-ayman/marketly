@@ -1,8 +1,10 @@
-import React, { useState, CSSProperties, useEffect } from "react";
+import React, { useState, CSSProperties, useEffect, useRef } from "react";
 import Style from './Register.module.css'
 import { PulseLoader } from "react-spinners"
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { getFirebaseErrorMessage } from "../../firebaseErrors";
+import {doc, updateDoc} from "firebase/firestore";
+import {db} from "../../firebase";
 import { auth } from "../../firebase";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -18,8 +20,8 @@ export default function Register() {
     let [showModal, setShowModal] = useState(false);
     let [modalType, setModalType] = useState("");
     let location = useLocation();
-    let from = location.state?.from;
-
+    const fromRef = useRef(location.state?.from?.pathname || "/");
+    
     useEffect(() => {
         let handleKey = (e) => {
             if (e.key === "Escape") setShowModal(false);
@@ -52,9 +54,12 @@ export default function Register() {
                 displayName: values.userName
             });
 
-            toast.success(`Welcome, ${values.userName}!`)
-            navigate(from || "/");
+            await updateDoc(doc(db, "users", userCred.user.uid),{
+                name: values.userName
+            });
 
+            toast.success(`Welcome, ${values.userName}!`)
+            navigate(fromRef.current || "/", { replace: true });
         } catch (err) {
             let message = getFirebaseErrorMessage(err.code);
             toast.error(message);
@@ -66,7 +71,7 @@ export default function Register() {
     let validationSchema = Yup.object({
         email: Yup.string().email('Enter a valid email').required('Email is required'),
         userName: Yup.string().min(3, 'Username minLength is 3').max(10, 'Name maxLength is 10').required('Username is required'),
-        password: Yup.string().matches(/^[A-Za-z0-9]{8,15}$/, 'Password must be more than 8 characters').required('Password is required'),
+        password: Yup.string().matches(/^[A-Za-z0-9]{6,15}$/, 'Password must be more than 6 characters').required('Password is required'),
     })
 
     let formik = useFormik({
@@ -119,7 +124,7 @@ export default function Register() {
                         </div>
                         {(isLoading) ? <button disabled className={`${Style.registerBTN} text-white mt-5 mb-4 w-100 d-flex justify-content-center align-items-center`} type="button"><PulseLoader color={color} size={10} /></button> : <button disabled={!(formik.isValid && formik.dirty)} type="submit" className={`btn ${Style.registerBTN} text-white mt-5 mb-4 w-100`}>Create Account</button>}
                         <p className={Style.dividerText}>Already have an account?</p>
-                        <Link type="button" className={`btn w-100 d-flex justify-content-center align-items-center ${Style.loginBTN}`} to={'/login'} state={{ from }}>Sign In Instead</Link>
+                        <Link type="button" className={`btn w-100 d-flex justify-content-center align-items-center ${Style.loginBTN}`} to={'/login'} state={{ from: { pathname: fromRef.current} }}>Sign In Instead</Link>
                         <button type="button" className={` mt-3 link-primary link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover bg-transparent border-0 ${Style.registerGuest}`} onClick={handleGuestLogin}>Continue as Guest →</button>
                     </div>
                 </form>

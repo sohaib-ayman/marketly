@@ -1,16 +1,19 @@
 import React, { useContext, useState } from "react";
 import Style from './CategoryPage.module.css'
 import HomeStyle from '../Home/Home.module.css'
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { DataContext } from "../../Context/DataContext";
 import { Helmet } from "react-helmet-async";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../Store/cartSlice";
+import { UserContext } from "../../Context/UserContext";
 
 export default function CategoryPage() {
     let { categorySlug } = useParams();
     let { categories, products } = useContext(DataContext);
     let currentCategory = categories.find((category) => category.slug === categorySlug);
+    let { user } = useContext(UserContext);
+    let navigate = useNavigate();
     const [sort, setSort] = useState("");
     const [search, setSearch] = useState("");
     const [minPrice, setMinPrice] = useState(0);
@@ -125,7 +128,7 @@ export default function CategoryPage() {
 
                         <div key={product.id} className="col-12 col-md-6 col-lg-3">
 
-                            <div className={HomeStyle.productCard}>
+                            <div className={HomeStyle.productCard} onClick={() => navigate(`/${product.category}/${product.slug}-${product.id}`)}>
 
                                 <div className={HomeStyle.productImg}>
                                     <img src={product.images[0]} alt={product.title} />
@@ -137,10 +140,13 @@ export default function CategoryPage() {
                                     <button className={HomeStyle.addBtn} onClick={(e) => {
                                         e.stopPropagation();
                                         dispatch(addToCart({
-                                            id: product.id,
-                                            title: product.title,
-                                            price: product.price,
-                                            image: product.images[0],
+                                            userId: user.isAnonymous ? "guest" : user.uid,
+                                            product: {
+                                                id: product.id,
+                                                title: product.title,
+                                                price: product.price,
+                                                image: product.images[0],
+                                            }
                                         }));
                                         setToast(product.title);
                                         setTimeout(() => setToast(null), 3000);
