@@ -1,91 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Style from "./AdminDashboard.module.css";
 import { Helmet } from "react-helmet-async";
 import UsersManagement from "../../Components/UsersManagement/UsersManagement";
 import ProductsManagement from "../../Components/ProductsManagement/ProductsManagement";
-import axios from "axios";
-import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../../firebase";
-import toast from "react-hot-toast";
+import SeedingManagement from "../../Components/SeedingManagement/SeedingManagement";
+import BackupManagement from "../../Components/BackupManagement/BackupManagement"; // 👈 إضافة
+import { UserContext } from "../../Context/UserContext";
 
 export default function AdminDashboard() {
     const [activeTab, setActiveTab] = useState("users");
+    const { user } = useContext(UserContext);
 
-
-    async function seedCategories() {
-        let res = await axios.get("https://api.escuelajs.co/api/v1/categories");
-
-        for (let cat of res.data) {
-            await setDoc(
-                doc(db, "categories", String(cat.id)),
-                {
-                    id: cat.id,
-                    name: cat.name,
-                    image: cat.image,
-                    slug: cat.name.toLowerCase().replace(/\s+/g, "-"),
-                    createdAt: new Date(),
-                },
-                { merge: true }
-            );
-        }
-
-        console.log("CATEGORIES SEEDED");
-    }
-
-
- async function seedProducts() {
-    try {
-        const res = await axios.get("https://api.escuelajs.co/api/v1/products");
-        const products = res.data;
-
-        await Promise.all(
-            products.map((product) => {
-                const formattedProduct = {
-                    id: product.id,
-                    title: product.title,
-
-                    // 👇 slug آمن
-                    slug:
-                        product.slug ||
-                        product.title
-                            .toLowerCase()
-                            .replace(/[^\w\s-]/g, "")
-                            .replace(/\s+/g, "-"),
-
-                    description: product.description,
-                    price: Number(product.price) || 0,
-
-                    // 👇 نحولها string عشان الكود عندك
-                    category: product.category?.slug || "misc",
-
-                    // 👇 صور آمنة
-                    thumbnail:
-                        product.images?.[0] ||
-                        "https://placehold.co/600x400",
-
-                    images: product.images || [],
-
-                    creationAt: product.creationAt,
-                    updatedAt: product.updatedAt,
-
-                    source: "platzi",
-                };
-
-                return setDoc(
-                    doc(db, "products", String(product.id)),
-                    formattedProduct
-                );
-            })
-        );
-
-        toast.success("Products seeded successfully ✅");
-        console.log("Products seeded ✅");
-
-    } catch (error) {
-        console.error(error);
-        toast.error("Seeding failed ❌");
-    }
-}
     return (
         <>
             <Helmet>
@@ -119,19 +44,40 @@ export default function AdminDashboard() {
                         >
                             <i className="fa-solid fa-box-open"></i> Products Management
                         </button>
+
+                        {user?.role === "owner" && (
+                            <button
+                                className={`${Style.tabBtn} ${activeTab === "seeding" ? Style.active : ""}`}
+                                onClick={() => setActiveTab("seeding")}
+                            >
+                                <i className="fa-solid fa-database"></i> Seeding
+                            </button>
+                        )}
+
+                        {user?.role === "owner" && (
+                            <button
+                                className={`${Style.tabBtn} ${activeTab === "backup" ? Style.active : ""}`}
+                                onClick={() => setActiveTab("backup")}
+                            >
+                                <i className="fa-solid fa-box-archive"></i> Backup
+                            </button>
+                        )}
                     </div>
 
                     {activeTab === "users" && <UsersManagement />}
+
                     {activeTab === "products" && <ProductsManagement />}
+
+                    {activeTab === "seeding" && user?.role === "owner" && (
+                        <SeedingManagement />
+                    )}
+
+                    {activeTab === "backup" && user?.role === "owner" && (
+                        <BackupManagement />
+                    )}
 
                 </div>
             </section>
-            <button onClick={seedProducts}>
-                Seed Products
-            </button>
-            <button onClick={seedCategories}>
-    Seed Categories
-</button>
         </>
     );
 }

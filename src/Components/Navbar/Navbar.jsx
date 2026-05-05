@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 
 export default function Navbar() {
     let [color, setColor] = useState("#ffffff");
-    let { user, loading, role } = useContext(UserContext);
+    let { user, loading} = useContext(UserContext);
     let { theme, toggleTheme } = useContext(ThemeContext);
     let navigate = useNavigate();
     let [isOpen, setIsOpen] = useState(false);
@@ -20,7 +20,7 @@ export default function Navbar() {
     let [cartVisible, setCartVisible] = useState(false);
     let [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     let location = useLocation();
-    let isAdmin = role === "admin";
+    let isAdmin = ["owner", "admin"].includes(user?.role);
     let isLoggedIn = user && !user.isAnonymous;
     let [loggingOut, setLoggingOut] = useState(false);
     let { categories } = useContext(DataContext);

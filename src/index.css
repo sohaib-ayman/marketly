@@ -28,6 +28,8 @@
   --adminBadgeTextColor: #6e11b0;
   --userBadgeBgColor: #dbfce7;
   --userBadgeTextColor: #016630;
+  --ownerBadgeBgColor: #fef3c7;
+  --ownerBadgeTextColor: #92400e;
 }
 
 [data-bs-theme="dark"] {
@@ -53,13 +55,15 @@
   --btnBg: #1e2a3a;
   --subtotalBg: #1e2a3a;
   --viewBtnBg: #2a3a4a;
-  --priceTagBgColor: rgba(255, 255, 255, 0.08);
+  --priceTagBgColor: #101828;
   --priceTagBorderColor: rgba(255, 255, 255, 0.12);
   --tableHeadBgColor: #364153;
   --adminBadgeBgColor: #59168b;
   --adminBadgeTextColor: #e9d4ff;
   --userBadgeBgColor: #0d542b;
   --userBadgeTextColor: #b9f8cf;
+  --ownerBadgeBgColor: #78350f;
+  --ownerBadgeTextColor: #fde68a;
 }
 
 body {

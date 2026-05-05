@@ -33,7 +33,7 @@ export default function CartDropdown({ onClose }) {
         <>
           {items.slice(0, 3).map(item => (
             <div key={item.id} className={Style.cartItemRow}>
-              <img src={item.image} alt={item.title} className={Style.cartItemImg} />
+              <img src={item.thumbnail} alt={item.title} className={Style.cartItemImg} />
               <div style={{ flex: 1 }}>
                 <p className={Style.cartProductTitle}>{item.title}</p>
                 <p className={Style.cartProductPrice}>${item.price}</p>

@@ -59,8 +59,8 @@ export default function UsersManagement() {
                         <tr key={user.id}>
                             <td className="py-1">{user.name || "Unnamed"}</td>
                             <td className="py-1 text-secondary">{user.email}</td>
-                            <td className="py-1"><span className={user.role === "admin" ? Style.adminBadge : Style.userBadge}>{user.role}</span></td>
-                            <td className="py-1">{user.role === "admin" ? (<button disabled className="bg-transparent ps-0"><i className="fa-regular fa-trash-can"></i> Delete</button>) : (<button className={`${Style.deleteBtn} ps-0`} onClick={() => setUserToDelete(user)}><i className="fa-regular fa-trash-can"></i> Delete</button>)}</td>
+                            <td className="py-1"><span className={user.role === "owner" ? Style.ownerBadge : user.role === "admin" ? Style.adminBadge : Style.userBadge}>{user.role}</span></td>
+                            <td className="py-1">{user.role === "admin" || user.role === "owner"? (<button disabled className="bg-transparent ps-0"><i className="fa-regular fa-trash-can"></i> Delete</button>) : (<button className={`${Style.deleteBtn} ps-0`} onClick={() => setUserToDelete(user)}><i className="fa-regular fa-trash-can"></i> Delete</button>)}</td>
                         </tr>
                     ))}
                 </tbody>

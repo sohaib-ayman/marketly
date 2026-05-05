@@ -77,7 +77,7 @@ export default function Cart() {
         <div className="col-lg-8">
           {items.map(item => (
             <div key={item.id} style={cardStyle}>
-              <img src={item.image} alt={item.title} style={imgStyle} />
+              <img src={item.thumbnail} alt={item.title} style={imgStyle} />
               <div style={{ flex: 1 }}>
                 <h5 style={productTitleStyle}>{item.title}</h5>
                 <p style={priceStyle}>${item.price} each</p>

@@ -3,42 +3,69 @@ import { createContext, useEffect, useRef, useState } from "react";
 import { auth, db } from "../firebase";
 import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
 
-import { store } from "../Store/store";
-import { mergeCart, clearCart } from "../Store/cartSlice";
+import { mergeCart, loadCartForUser } from "../Store/cartSlice";
 import { useDispatch } from "react-redux";
-import { loadCartForUser } from "../Store/cartSlice";
 
 export let UserContext = createContext();
 
 export default function UserContextProvider(props) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [role, setRole] = useState(null);
+
     const previousUser = useRef(null);
-    let dispatch = useDispatch();
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        if(!user) return;
+        const userId = user.isAnonymous ? "guest" : user.uid;
+        dispatch(loadCartForUser(userId));
+    }, [user]);
+
+    async function attachRole(currentUser) {
+        try {
+            const userRef = doc(db, "users", currentUser.uid);
+            const userSnap = await getDoc(userRef);
+
+            if (userSnap.exists()) {
+                return {
+                    ...currentUser,
+                    role: userSnap.data().role || "user",
+                };
+            }
+
+            await setDoc(userRef, {
+                uid: currentUser.uid,
+                email: currentUser.email || null,
+                name: currentUser.displayName || "",
+                role: "user",
+                isAnonymous: false,
+                createdAt: serverTimestamp(),
+            });
+
+            return {
+                ...currentUser,
+                role: "user",
+            };
+
+        } catch (err) {
+            console.error("Role fetch error:", err);
+
+            return {
+                ...currentUser,
+                role: "user",
+            };
+        }
+    }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+
             if (currentUser) {
 
                 if (!currentUser.isAnonymous) {
 
-                    const userRef = doc(db, "users", currentUser.uid);
-                    const userSnap = await getDoc(userRef);
-                    if (userSnap.exists()) {
-                        setRole(userSnap.data().role);
-                    }
-                    if (!userSnap.exists()) {
-                        await setDoc(userRef, {
-                            uid: currentUser.uid,
-                            email: currentUser.email || null,
-                            name: currentUser.displayName || "",
-                            role: "user",
-                            isAnonymous: false,
-                            createdAt: serverTimestamp(),
-                        });
-                        setRole("user");
-                    }
+                    const userWithRole = await attachRole(currentUser);
+                    setUser(userWithRole);
 
                     dispatch(loadCartForUser(currentUser.uid));
 
@@ -57,17 +84,25 @@ export default function UserContextProvider(props) {
                     }
 
                 } else {
+                    setUser({
+                        ...currentUser,
+                        role: "guest"
+                    });
+
                     dispatch(loadCartForUser("guest"));
                 }
 
                 previousUser.current = currentUser;
-                setUser(currentUser);
 
             } else {
                 const result = await signInAnonymously(auth);
-                setUser(result.user);
+
+                setUser({
+                    ...result.user,
+                    role: "guest"
+                });
+
                 dispatch(loadCartForUser("guest"));
-                setRole(null);
             }
 
             setLoading(false);
@@ -77,7 +112,7 @@ export default function UserContextProvider(props) {
     }, []);
 
     return (
-        <UserContext.Provider value={{ user, loading, role }}>
+        <UserContext.Provider value={{ user, loading }}>
             {props.children}
         </UserContext.Provider>
     );

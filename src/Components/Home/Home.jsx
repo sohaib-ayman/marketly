@@ -83,7 +83,7 @@ export default function Home() {
                                             id: product.id,
                                             title: product.title,
                                             price: product.price,
-                                            image: product.images[0],
+                                            thumbnail: product.images[0],
                                         }
                                     }));
                                     setToast(product.title);
@@ -101,7 +101,7 @@ export default function Home() {
             </div>
         </div>
         {toast && (
-            <div style={{ position: "fixed", top: "20px", right: "20px", background: "#1e2a3a", color: "#ffffff", padding: "14px 20px", borderRadius: "12px", display: "flex", alignItems: "center", gap: "10px", zIndex: 9999, boxShadow: "0 4px 20px rgba(0,0,0,0.3)", fontSize: "14px", fontWeight: "500", animation: "slideDown 0.3s ease" }}>
+            <div style={{ position: "fixed", bottom: "20px", left: "20px", background: "var(--pageBgColor)", color: "var(--textColor)", padding: "14px 20px", borderRadius: "12px", display: "flex", alignItems: "center", gap: "10px", zIndex: 9999, boxShadow: "0 4px 20px rgba(0,0,0,0.3)", fontSize: "14px", fontWeight: "500", animation: "slideDown 0.3s ease" }}>
                 <i className="fa-solid fa-circle-check" style={{ color: "#2ecc71" }}></i>
                 {toast} added to cart!
             </div>
