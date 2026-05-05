@@ -69,20 +69,20 @@
 }
 
 .primaryBtn {
-    background: #2ecc71;
+    background: #2ecc71 !important;
 }
 
 .primaryBtn:hover {
-    background: #27ae60;
+    background: #27ae60 !important;
 }
 
 .secondaryBtn {
-    background: #3498db;
+    background: #3498db !important;
     margin-top: 8px;
 }
 
 .secondaryBtn:hover {
-    background: #2980b9;
+    background: #2980b9 !important;
 }
 
 .primaryBtn:disabled,
@@ -159,7 +159,7 @@
 
 .cancelBtn {
     background: transparent;
-    border: 1px solid var(--borderColor);
+    border: 1px solid var(--input-bg) !important;
     color: var(--textSecondary);
     padding: 8px 14px;
     border-radius: 10px;
@@ -168,11 +168,11 @@
 }
 
 .cancelBtn:hover {
-    background: var(--btnBg);
+    background: var(--btnBg) !important;
 }
 
 .confirmBtn {
-    background: #e74c3c;
+    background: #e74c3c !important;
     color: white;
     border: none;
     padding: 8px 14px;

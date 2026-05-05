@@ -34,6 +34,7 @@ function App() {
         { path: '/:categorySlug/:productSlug', element:<ProductDetails/>},
         { path: 'my-orders', element:<Auth><MyOrders/></Auth>},
         { path: 'admin-dashboard', element:<Auth><AdminDashboard/></Auth>},
+        { path: 'not-found', element: <NotFound /> },
         { path: '*', element: <NotFound /> }
       ]
     }

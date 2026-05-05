@@ -1,0 +1,129 @@
+.footer {
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid rgba(120, 120, 120, 0.12);
+    margin-top: 50px;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--pColor);
+    line-height: 1.7;
+}
+
+.footer button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #4f6ef7;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.25s;
+}
+
+.footer button:hover {
+    text-decoration: underline;
+    opacity: 0.9;
+}
+
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+}
+
+.modalContent {
+    background: var(--cardBgColor) !important;
+    width: 500px;
+    max-width: 90%;
+    padding: 28px;
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.25s ease;
+    border: 1px solid rgba(120, 120, 120, 0.12);
+}
+
+.modalContent h2 {
+    font-size: 1.4rem;
+    margin-bottom: 16px;
+    font-weight: 700;
+}
+
+.modalContent p,
+.modalContent li {
+    color: var(--pColor);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.modalContent ul {
+    padding-left: 20px;
+    margin-top: 12px;
+    margin-bottom: 0;
+}
+
+.closeBtn {
+    margin-top: 22px;
+    border: none;
+    background: linear-gradient(135deg, #4f6ef7, #6c63ff) !important;
+    color: white;
+    padding: 11px 22px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    min-width: 100px;
+    transition: all 0.25s ease;
+}
+
+.closeBtn:hover {
+    transform: translateY(-1px);
+    box-shadow:
+        0 10px 24px rgba(79, 110, 247, 0.28),
+        0 4px 12px rgba(108, 99, 255, 0.18);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.94);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 18px 14px;
+    }
+
+    .footer p {
+        font-size: 0.8rem;
+    }
+
+    .modalContent {
+        padding: 22px;
+        border-radius: 16px;
+    }
+
+    .modalContent h2 {
+        font-size: 1.2rem;
+    }
+
+    .modalContent p,
+    .modalContent li {
+        font-size: 0.875rem;
+    }
+
+    .closeBtn {
+        width: 100%;
+    }
+}

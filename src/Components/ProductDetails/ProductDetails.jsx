@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Style from "./ProductDetails.module.css";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
 import { DataContext } from "../../Context/DataContext";
 import { Helmet } from "react-helmet-async";
 import { useDispatch } from "react-redux";
@@ -11,7 +11,7 @@ import LoadingScreen from "../LoadingScreen/LoadingScreen";
 export default function ProductDetails() {
     let { productSlug } = useParams();
     let navigate = useNavigate();
-    let { products } = useContext(DataContext);
+    let { products, loading } = useContext(DataContext);
     let { user } = useContext(UserContext);
     let dispatch = useDispatch();
     let productID = productSlug?.split("-").pop();
@@ -29,9 +29,13 @@ export default function ProductDetails() {
 
     const [quantity, setQuantity] = useState(1);
 
-    if (!currentProduct) {
+    if (loading) {
         return <LoadingScreen />
     };
+
+    if (!currentProduct) {
+        return <Navigate to="/not-found" replace/>
+    }
 
     return <>
         <Helmet>
@@ -45,7 +49,7 @@ export default function ProductDetails() {
             <div className={Style.wrapper}>
 
                 <div className={Style.imagesSection}>
-                    <button className={`${Style.backBtn} ps-0`} onClick={() => navigate(-1)}>
+                    <button className={`${Style.backBtn} ps-0 bg-transparent`} onClick={() => navigate(-1)}>
                         <i className="fa-solid fa-arrow-left"></i> Back
                     </button>
 
@@ -58,6 +62,7 @@ export default function ProductDetails() {
                             <img
                                 key={index}
                                 src={img}
+                                alt={`${currentProduct.title} thumbnail ${index + 1}`}
                                 onClick={() => setActiveImg(img)}
                                 className={
                                     activeImg === img

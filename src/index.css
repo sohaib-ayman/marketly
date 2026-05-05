@@ -30,6 +30,12 @@
   --userBadgeTextColor: #016630;
   --ownerBadgeBgColor: #fef3c7;
   --ownerBadgeTextColor: #92400e;
+  --card-bg: #ffffff;
+  --card-border: #d9dee7;
+  --input-bg: #f8fafc;
+  --input-border: #d9dee7;
+  --text-main: #0f172a;
+  --text-secondary: #64748b;
 }
 
 [data-bs-theme="dark"] {
@@ -64,6 +70,12 @@
   --userBadgeTextColor: #b9f8cf;
   --ownerBadgeBgColor: #78350f;
   --ownerBadgeTextColor: #fde68a;
+  --card-bg: #1e293b;
+  --card-border: #334155;
+  --input-bg: #334155;
+  --input-border: #475569;
+  --text-main: #ffffff;
+  --text-secondary: #94a3b8;
 }
 
 body {

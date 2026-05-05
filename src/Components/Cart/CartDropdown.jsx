@@ -45,7 +45,7 @@ export default function CartDropdown({ onClose }) {
                   <button onClick={() => handleQuantity(item.id, item.quantity + 1)} className={Style.cartQtyBtn}>
                     <i className="fa-solid fa-plus"></i>
                   </button>
-                  <button onClick={() => dispatch(removeFromCart({id:item.id, userId:cartUserId}))} className={Style.cartRemoveBtn}>
+                  <button onClick={() => dispatch(removeFromCart({id:item.id, userId:cartUserId}))} className={`${Style.cartRemoveBtn} bg-transparent`}>
                     <i className="fa-solid fa-trash"></i>
                   </button>
                 </div>

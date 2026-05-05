@@ -117,7 +117,7 @@ export default function Navbar() {
                                     <Link to="/my-orders" className={Style.dropdownItem}><i className="fa-solid fa-box-open"></i> My Orders</Link>
                                     {isAdmin ? (<Link to="/admin-dashboard" className={Style.dropdownItem}><i className="fa-solid fa-chart-column"></i> Admin Dashboard</Link>) : null}
                                     <hr />
-                                    <button onClick={logOut} className={`${Style.dropdownItem} text-danger`}><i className="fa-solid fa-arrow-right-to-bracket"></i> Logout</button>
+                                    <button onClick={logOut} className={`${Style.dropdownItem} text-danger bg-transparent`}><i className="fa-solid fa-arrow-right-to-bracket"></i> Logout</button>
                                 </div>
                             </li>
                         )}

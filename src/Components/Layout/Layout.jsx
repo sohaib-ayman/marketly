@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import { DataContext } from "../../Context/DataContext";
 import LoadingScreen from "../LoadingScreen/LoadingScreen";
 import toast from "react-hot-toast";
+import Footer from "../Footer/Footer";
 
 export default function Layout() {
     let { loading } = useContext(DataContext);
@@ -55,5 +56,6 @@ export default function Layout() {
                 duration: 3000,
             }}
         />
+        <Footer/>
     </>
 }

@@ -1,16 +1,17 @@
 import React, { useContext, useState } from "react";
 import Style from './CategoryPage.module.css'
 import HomeStyle from '../Home/Home.module.css'
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { DataContext } from "../../Context/DataContext";
 import { Helmet } from "react-helmet-async";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../Store/cartSlice";
 import { UserContext } from "../../Context/UserContext";
+import LoadingScreen from "../LoadingScreen/LoadingScreen";
 
 export default function CategoryPage() {
     let { categorySlug } = useParams();
-    let { categories, products } = useContext(DataContext);
+    let { categories, products, loading } = useContext(DataContext);
     let currentCategory = categories.find((category) => category.slug === categorySlug);
     let { user } = useContext(UserContext);
     let navigate = useNavigate();
@@ -21,6 +22,15 @@ export default function CategoryPage() {
     const [showFilters, setShowFilters] = useState(false);
     let [toast, setToast] = useState(null);
     let dispatch = useDispatch();
+
+    if (loading) {
+        return <LoadingScreen />
+    };
+
+    if (!currentCategory) {
+        return <Navigate to="/not-found" replace/>
+    }
+
 
     let categoryProducts = products.filter(
         product =>
@@ -38,7 +48,7 @@ export default function CategoryPage() {
     }
 
     return <>
-        <div className={Style.pageContainer}>
+        <div className={`${Style.pageContainer}`}>
             <Helmet>
                 <title>{`${currentCategory?.name} | Marketly`}</title>
                 <meta

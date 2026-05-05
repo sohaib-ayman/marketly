@@ -92,7 +92,7 @@ export default function SeedingManagement() {
         }, 1500);
     }
 
-    return (
+    return <>
         <div className={Style.panel}>
 
             <div className={Style.header}>
@@ -100,62 +100,35 @@ export default function SeedingManagement() {
                 <span className={Style.badge}>Owner Only</span>
             </div>
 
-            <p className={Style.description}>
-                Import initial data from Platzi API. This may overwrite existing data.
-            </p>
+            <p className={Style.description}>Import initial data from Platzi API. This may overwrite existing data.</p>
 
             <div className={Style.cards}>
 
                 <div className={Style.seedCard}>
                     <h4>Products</h4>
                     <p>Seed all products into Firestore</p>
-
-                    <button
-                        className={Style.primaryBtn}
-                        onClick={() => setConfirmType("products")}
-                        disabled={isSeeding}
-                    >
-                        Seed Products
-                    </button>
+                    <button className={Style.primaryBtn} onClick={() => setConfirmType("products")} disabled={isSeeding}>Seed Products</button>
                 </div>
 
                 <div className={Style.seedCard}>
                     <h4>Categories</h4>
                     <p>Seed all categories into Firestore</p>
-
-                    <button
-                        className={Style.secondaryBtn}
-                        onClick={() => setConfirmType("categories")}
-                        disabled={isSeeding}
-                    >
-                        Seed Categories
-                    </button>
+                    <button className={Style.secondaryBtn} onClick={() => setConfirmType("categories")} disabled={isSeeding}>Seed Categories</button>
                 </div>
-
             </div>
 
             {confirmType && (
-                <div
-                    className={Style.modalOverlay}
-                    onClick={() => !isSeeding && setConfirmType(null)}
-                >
-                    <div
-                        className={Style.modal}
-                        onClick={(e) => e.stopPropagation()}
-                    >
-
-                        {/* Header */}
+                <div className={Style.modalOverlay} onClick={() => !isSeeding && setConfirmType(null)}>
+                    <div className={Style.modal} onClick={(e) => e.stopPropagation()}>
                         <div className={Style.modalHeader}>
                             <div className={Style.icon}>
                                 <i className="fa-solid fa-triangle-exclamation"></i>
                             </div>
-
                             <div>
                                 <h3>Confirm Seeding</h3>
                                 <p>This action cannot be undone</p>
                             </div>
                         </div>
-
                         <div className={Style.modalBody}>
                             {isSeeding ? (
                                 <p>Seeding in progress... please wait</p>
@@ -173,19 +146,8 @@ export default function SeedingManagement() {
                         </div>
 
                         <div className={Style.modalFooter}>
-                            <button
-                                className={Style.cancelBtn}
-                                onClick={() => setConfirmType(null)}
-                                disabled={isSeeding}
-                            >
-                                Cancel
-                            </button>
-
-                            <button
-                                className={Style.confirmBtn}
-                                onClick={handleConfirm}
-                                disabled={isSeeding}
-                            >
+                            <button className={Style.cancelBtn} onClick={() => setConfirmType(null)} disabled={isSeeding}>Cancel</button>
+                            <button className={Style.confirmBtn} onClick={handleConfirm} disabled={isSeeding}>
                                 {isSeeding ? (
                                     <div className={Style.loaderWrapper}>
                                         <BeatLoader size={8} color="#fff" />
@@ -197,10 +159,9 @@ export default function SeedingManagement() {
                                 )}
                             </button>
                         </div>
-
                     </div>
                 </div>
             )}
         </div>
-    );
+    </>
 }
