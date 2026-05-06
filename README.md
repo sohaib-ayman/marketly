@@ -158,4 +158,4 @@ Team Members
 
 ---
 
-This project was developed as part of the Rowad Initiative.
+This project was developed as part of the Digital Egypt Pioneers Initiative (DEPI).
