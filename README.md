@@ -1,70 +1,161 @@
-# Getting Started with Create React App
+Marketly
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Modern e-commerce web application built with React, Firebase, Redux Toolkit, and Firestore.
 
-## Available Scripts
+Live Demo
 
-In the project directory, you can run:
+https://marketly-nu.vercel.app
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Firebase Authentication
+- Guest browsing support
+- Persistent cart system
+- Product categories and product details pages
+- Real order system using Firestore
+- Order tracking
+- Admin dashboard
+- Products management
+- Users management
+- Backup & Restore system
+- Seeding products from Platzi API
+- Dark / Light mode
+- Responsive design
+- SEO optimization using React Helmet
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+System Overview
 
-### `npm run build`
+The project uses Firebase Authentication and Firestore instead of relying directly on Platzi API data.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This approach was implemented because Platzi product data can sometimes become unstable since editing and deleting products are publicly accessible there.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To solve this issue, products are fetched from Platzi API once and stored inside a dedicated Firestore collection, then the application works entirely using Firestore data.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Orders are also stored in Firestore, which means:
 
-### `npm run eject`
+- Orders are accessible from any device
+- Orders persist after refresh or logout
+- My Orders and Track Order pages use real Firestore data
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Only cart items are temporarily stored in localStorage and they are automatically cleared after successful checkout.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Admin Dashboard
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The admin dashboard includes:
 
-## Learn More
+Users Management
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- View registered users
+- Remove users from Firestore collection
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Note:
+Deleting a user only removes them from the Firestore collection.
+If the same user logs in again, they will automatically appear again because permanent account deletion requires backend admin privileges.
 
-### Code Splitting
+Products Management
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Add products
+- Edit products
+- Delete products
 
-### Analyzing the Bundle Size
+All changes are applied directly to Firestore and affect the live website data.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+Owner Features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The owner role includes two additional tabs:
 
-### Advanced Configuration
+Backup & Restore
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Creates backups for the products collection and restores products in case of accidental deletion.
 
-### Deployment
+Seeding
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Fetches products from Platzi API and inserts them into the main Firestore products collection.
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Demo Admin Account
+
+Email: admin@marketly.com
+
+Password: 123456789
+
+The owner account remains private to avoid accidental modifications to the database.
+
+---
+
+Tech Stack
+
+Frontend
+
+- React
+- React Router DOM
+- Redux Toolkit
+- CSS Modules
+- Bootstrap
+- React Helmet Async
+- React Hot Toast
+- Formik
+- Yup
+
+Backend Services
+
+- Firebase Authentication
+- Firestore Database
+
+Deployment
+
+- Vercel
+
+---
+
+Installation
+
+Clone the repository
+
+git clone https://github.com/your-username/marketly.git
+
+Navigate to project folder
+
+cd marketly
+
+Install dependencies
+
+npm install
+
+Run development server
+
+npm start
+
+---
+
+Project Structure
+
+src/
+ ├── Components/
+ ├── Context/
+ ├── Store/
+ ├── firebase.js
+ ├── App.js
+
+---
+
+Team Members
+
+- Sohaib Ayman Elsayed Elbadawy Ashry
+- Hossam Hassan Mostafa Hassan
+- Mohamed Ahmed Thabet Hussein
+- Rawan Hamdi Mohamed Saad
+- Abdelrahman Khaled Slahelden Mohamed
+
+---
+
+This project was developed as part of the Rowad Initiative.
