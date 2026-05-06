@@ -1,1 +1,296 @@
-.Checkout {}
+.checkoutPage {
+    padding: 50px 60px;
+    width: min(1400px, 92%);
+    margin: auto;
+}
+
+.pageTitle {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-bottom: 32px;
+    color: var(--text-main);
+}
+
+.checkoutGrid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 32px;
+    align-items: start;
+}
+
+.formsSection {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.card,
+.summaryCard {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 22px;
+    padding: 28px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.summaryCard {
+    position: sticky;
+    top: 100px;
+    align-self: flex-start;
+}
+
+.titleRow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.titleIcon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(79, 110, 247, 0.12) !important;
+
+    color: #4f6ef7;
+    font-size: 1rem;
+
+    flex-shrink: 0;
+}
+
+.sectionTitle,
+.summaryTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-main);
+}
+
+.card label {
+    display: block;
+    margin-bottom: 10px;
+
+    font-size: 0.875rem;
+    font-weight: 600;
+
+    color: var(--text-main);
+}
+
+.card input {
+    width: 100%;
+
+    padding: 18px 20px;
+
+    border-radius: 16px;
+
+    border: 1px solid var(--input-border) !important;
+
+    background: var(--input-bg) !important;
+
+    color: var(--text-main);
+
+    margin-bottom: 22px;
+
+    font-size: 16px;
+
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.2s ease;
+}
+
+.card input::placeholder {
+    color: #9ca3af;
+}
+
+.card input:focus {
+    border-color: #5f6fff !important;
+
+    box-shadow:
+        0 0 0 4px rgba(95, 111, 255, 0.12);
+
+    transform: translateY(-1px);
+}
+
+.twoCols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.summaryItem {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    margin-bottom: 18px;
+}
+
+.summaryItem img {
+    width: 72px;
+    height: 72px;
+
+    object-fit: cover;
+
+    border-radius: 14px;
+
+    flex-shrink: 0;
+}
+
+.summaryItem h4 {
+    font-size: 0.875rem;
+    margin: 0;
+    color: var(--text-main);
+}
+
+.summaryItem p {
+    margin: 4px 0 0;
+
+    color: var(--text-secondary);
+
+    font-size: 0.875rem;
+}
+
+.summaryCard hr {
+    border: none;
+
+    border-top: 1px solid var(--card-border);
+
+    margin: 22px 0;
+}
+
+.summaryRow,
+.totalRow {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 16px;
+
+    color: var(--text-secondary);
+
+    font-size: 1rem;
+}
+
+.totalRow {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-main);
+
+    margin-bottom: 0;
+}
+
+.free {
+    color: #00c853;
+    font-weight: 700;
+}
+
+.completeBtn {
+    width: 100%;
+
+    border: none;
+
+    padding: 16px;
+
+    border-radius: 16px;
+
+    font-size: 1rem;
+    font-weight: 700;
+
+    color: white;
+
+    cursor: pointer;
+
+    background: linear-gradient(
+        135deg,
+        #4f6ef7,
+        #6c63ff,
+        #3ed6c5
+    );
+
+    transition: all 0.3s ease !important;
+}
+
+.completeBtn:hover {
+    transform: scale(1.01) translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(91, 95, 255, 0.3),
+        0 6px 15px rgba(56, 189, 248, 0.2);
+}
+
+@media (max-width: 768px) {
+
+    .checkoutPage {
+        padding: 32px 12px;
+        width: 100%;
+    }
+
+    .pageTitle {
+        font-size: 2rem;
+    }
+
+    .checkoutGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .card,
+    .summaryCard {
+        padding: 22px;
+        border-radius: 18px;
+    }
+
+    .summaryCard {
+        position: static;
+        margin-top: 10px;
+    }
+
+    .titleRow {
+        gap: 14px;
+        margin-bottom: 22px;
+    }
+
+    .titleIcon {
+        width: 50px;
+        height: 50px;
+
+        border-radius: 15px;
+
+        font-size: 20px;
+    }
+
+    .sectionTitle,
+    .summaryTitle {
+        font-size: 1.6rem;
+    }
+
+    .twoCols {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .card input {
+        padding: 16px 18px;
+        font-size: 15px;
+    }
+
+    .summaryItem {
+        align-items: flex-start;
+    }
+
+    .summaryItem img {
+        width: 64px;
+        height: 64px;
+    }
+
+    .completeBtn {
+        padding: 15px;
+        font-size: 1rem;
+    }
+}
