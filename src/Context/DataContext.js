@@ -13,8 +13,6 @@ export default function DataContextProvider(props) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-
-        // ===== PRODUCTS REALTIME =====
         const unsubscribeProducts = onSnapshot(
             collection(db, "products"),
             (snapshot) => {
@@ -24,37 +22,25 @@ export default function DataContextProvider(props) {
 
                     return {
                         ...p,
-
-                        // 🔥 id مضمون
                         id: p.id ?? Number(doc.id),
-
-                        // 🔥 category normalization
                         category:
                             typeof p.category === "object"
                                 ? p.category.slug
                                 : p.category || "",
-
-                        // 🔥 images fallback
                         images:
                             Array.isArray(p.images) && p.images.length > 0
                                 ? p.images
                                 : p.thumbnail
                                     ? [p.thumbnail]
                                     : ["https://placehold.co/600x400"],
-
-                        // 🔥 thumbnail fallback
                         thumbnail:
                             p.thumbnail ||
                             (Array.isArray(p.images) ? p.images[0] : ""),
-
-                        // 🔥 slug fallback
                         slug:
                             p.slug ||
                             p.title?.toLowerCase().replace(/\s+/g, "-"),
                     };
                 });
-
-                // 🔥 counts calculation
                 const counter = {};
                 productsData.forEach(product => {
                     counter[product.category] =
@@ -67,11 +53,9 @@ export default function DataContextProvider(props) {
             },
             (error) => {
                 console.error(error);
-                toast.error("Failed to load products ❌");
+                toast.error("Failed to load products");
             }
         );
-
-        // ===== CATEGORIES REALTIME =====
         const unsubscribeCategories = onSnapshot(
             collection(db, "categories"),
             (snapshot) => {
@@ -92,11 +76,9 @@ export default function DataContextProvider(props) {
             },
             (error) => {
                 console.error(error);
-                toast.error("Failed to load categories ❌");
+                toast.error("Failed to load categories");
             }
         );
-
-        // cleanup
         return () => {
             unsubscribeProducts();
             unsubscribeCategories();
@@ -104,16 +86,9 @@ export default function DataContextProvider(props) {
 
     }, []);
 
-    return (
-        <DataContext.Provider
-            value={{
-                products,
-                categories,
-                counts,
-                loading
-            }}
-        >
+    return <>
+        <DataContext.Provider value={{ products, categories, counts, loading}}>
             {props.children}
         </DataContext.Provider>
-    );
+    </>
 }
