@@ -79,7 +79,7 @@ export default function Home() {
                                     e.stopPropagation();
                                     dispatch(addToCart({
                                         userId: user.isAnonymous ? "guest" : user.uid,
-                                        product: {
+                                        product:{
                                             id: product.id,
                                             title: product.title,
                                             price: product.price,
