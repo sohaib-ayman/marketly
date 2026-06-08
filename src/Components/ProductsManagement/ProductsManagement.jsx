@@ -316,7 +316,7 @@ export default function ProductsManagement() {
 
                     <div className={Style.modalFooter}>
                         <button type="button" className={Style.cancelBtn} onClick={() => setEditingProduct(null)}>Cancel</button>
-                        <button className={Style.submitBtn}>Save Changes</button>
+                        <button className={Style.saveBtn}>Save Changes</button>
                     </div>
                 </form>
             </div>
