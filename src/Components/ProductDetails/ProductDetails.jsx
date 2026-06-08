@@ -54,13 +54,12 @@ export default function ProductDetails() {
                     </button>
 
                     <div className={Style.mainImage}>
-                        <img loading="lazy" src={activeImg} alt={currentProduct.title} />
+                        <img src={activeImg} alt={currentProduct.title} />
                     </div>
 
                     <div className={Style.thumbs}>
                         {currentProduct.images.map((img, index) => (
                             <img
-                                loading="lazy"
                                 key={index}
                                 src={img}
                                 alt={`${currentProduct.title} thumbnail ${index + 1}`}

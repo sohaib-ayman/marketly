@@ -141,7 +141,7 @@ export default function CategoryPage() {
                             <div className={HomeStyle.productCard} onClick={() => navigate(`/${product.category}/${product.slug}-${product.id}`)}>
 
                                 <div className={HomeStyle.productImg}>
-                                    <img loading="lazy" src={product.images[0]} alt={product.title} />
+                                    <img src={product.images[0]} alt={product.title} />
 
                                     <span className={HomeStyle.price}>
                                         ${product.price}

@@ -111,7 +111,7 @@ export default function MyOrders() {
                         <div className={Style.itemsList}>
                             {order.items.map((item) => (
                                 <div key={item.id} className={Style.itemRow}>
-                                    <img loading="lazy" src={item.thumbnail} alt={item.title} />
+                                    <img src={item.thumbnail} alt={item.title} />
 
                                     <div className={Style.itemInfo}>
                                         <h4>{item.title}</h4>

@@ -280,7 +280,7 @@ export default function Checkout() {
 
             {items.map((item) => (
               <div key={item.id} className={Style.summaryItem}>
-                <img loading="lazy" src={item.thumbnail || item.image} alt={item.title} />
+                <img src={item.thumbnail || item.image} alt={item.title} />
 
                 <div>
                   <h4>{item.title}</h4>
