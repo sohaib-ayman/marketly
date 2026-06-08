@@ -125,7 +125,7 @@
 }
 
 .confirmBtn {
-    background: #ef4444;
+    background: #ef4444 !important;
     color: white;
     border: none;
     padding: 10px 18px;
