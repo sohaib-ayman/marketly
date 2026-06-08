@@ -19,6 +19,7 @@ import { HelmetProvider } from "react-helmet-async";
 import UserContextProvider from './Context/UserContext';
 import ThemeContextProvider from "./Context/ThemeContext";
 import DataContextProvider from './Context/DataContext';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 function App() {
   let routers = createBrowserRouter([
@@ -46,6 +47,7 @@ function App() {
         <ThemeContextProvider>
           <UserContextProvider>
             <RouterProvider router={routers}></RouterProvider>
+            <SpeedInsights />
           </UserContextProvider>
         </ThemeContextProvider>
       </DataContextProvider>
