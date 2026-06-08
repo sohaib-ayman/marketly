@@ -234,7 +234,7 @@ export default function ProductsManagement() {
                             <tr key={product.id}>
                                 <td className="py-2">
                                     <div className={Style.productCell}>
-                                        <img src={product.thumbnail} alt={product.title} onError={(e) => {
+                                        <img loading="lazy" src={product.thumbnail} alt={product.title} onError={(e) => {
                                             e.target.src = "/placeholder-product.png";
                                         }} />
                                         <span>{product.title}</span>

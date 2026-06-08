@@ -153,7 +153,7 @@ export default function OrdersManagement() {
                             <h4>Items</h4>
                             {selectedOrder.items?.map((item) => (
                                 <div key={item.id} className={Style.itemRow}>
-                                    <img src={item.thumbnail} alt={item.title} />
+                                    <img loading="lazy" src={item.thumbnail} alt={item.title} />
                                     <div className={Style.itemInfo}>
                                         <h5>{item.title}</h5>
                                         <p>Qty: {item.quantity}</p>

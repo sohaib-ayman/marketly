@@ -51,7 +51,7 @@ export default function Home() {
                     <div key={category.id} className="col-6 col-md">
                         <div className={Style.categoryCard} onClick={() => navigate(`/${category.slug}`)}>
                             <div className={Style.categoryImg}>
-                                <img src={category.image} alt={category.name} />
+                                <img loading="lazy" src={category.image} alt={category.name} />
                             </div>
                             <div className={Style.categoryInfo}>
                                 <h3>{category.name}</h3>
@@ -72,7 +72,7 @@ export default function Home() {
                     <div key={product.id} className="col-12 col-md-6 col-lg-3">
                         <div className={Style.productCard} onClick={() => navigate(`/${product.category}/${product.slug}-${product.id}`)}>
                             <div className={Style.productImg}>
-                                <img src={product.images[0]} alt={product.title} />
+                                <img loading="eager" fetchPriority="high" src={product.images[0]} alt={product.title} />
                                 <span className={Style.price}>${product.price}</span>
 
                                 <button className={Style.addBtn} onClick={(e) => {

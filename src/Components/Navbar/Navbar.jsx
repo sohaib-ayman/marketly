@@ -78,7 +78,7 @@ export default function Navbar() {
             <div className="container">
                 <Link className="navbar-brand" to={"/"}><img src="/Logo.png" alt="Bootstrap" width="150" /></Link>
                 <div className="d-flex d-lg-none align-items-center gap-2 ms-auto">
-                    <button className={Style.iconBTN} onClick={toggleTheme}>{theme === "light" ? <i className="fa-solid fa-moon"></i> : <i className="fa-solid fa-sun"></i>}</button>
+                    <button aria-label="dark/light mode" className={Style.iconBTN} onClick={toggleTheme}>{theme === "light" ? <i className="fa-solid fa-moon"></i> : <i className="fa-solid fa-sun"></i>}</button>
                     <Link className={`${Style.iconBTN} me-2 text-decoration-none`} to={"/cart"}><i className="fa-solid fa-cart-shopping"></i>
                         <span className={Style.cartBadge}>{cartCount}</span>
                     </Link>
@@ -100,7 +100,7 @@ export default function Navbar() {
 
                     <ul className="navbar-nav mb-2 mb-lg-0">
                         <li className="ms-2 me-2 nav-item">
-                            <button className={`${Style.iconBTN} d-none d-lg-block`} onClick={toggleTheme}>{theme === "light" ? <i className="fa-solid fa-moon"></i> : <i className="fa-solid fa-sun"></i>}</button></li>
+                            <button aria-label="dark/light mode" className={`${Style.iconBTN} d-none d-lg-block`} onClick={toggleTheme}>{theme === "light" ? <i className="fa-solid fa-moon"></i> : <i className="fa-solid fa-sun"></i>}</button></li>
                         {(isLoggedIn) && isMobile && (
                             <>
                                 <hr />

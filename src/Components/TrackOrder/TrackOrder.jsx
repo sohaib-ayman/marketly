@@ -179,7 +179,7 @@ export default function TrackOrder() {
                 <div className={Style.productsList}>
                   {order.items.map((item) => (
                     <div key={item.id} className={Style.productRow}>
-                      <img src={item.thumbnail} alt={item.title} />
+                      <img loading="lazy" src={item.thumbnail} alt={item.title} />
 
                       <div className={Style.productInfo}>
                         <h4>{item.title}</h4>
