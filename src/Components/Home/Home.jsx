@@ -43,7 +43,7 @@ export default function Home() {
             <button onClick={() => { sectionRef.current.scrollIntoView({ behavior: "smooth" }); }} className="mt-4 text-decoration-none bg-white">Shop Now <i className="fa-solid fa-arrow-right"></i></button>
         </div>
 
-        <div ref={sectionRef} className="container px-5 py-5 ps-3 ps-md-0 pe-3 pe-md-0">
+        <div ref={sectionRef} className="container px-5 py-5 ps-3 ps-md-4 pe-3 pe-md-4">
             <h2 className={`${Style.titleText} mb-5 ms-2`}>Shop by Category</h2>
 
             <div className="row justify-content-start justify-content-md-center gy-3 gy-md-0">
@@ -65,7 +65,7 @@ export default function Home() {
             </div>
         </div>
 
-        <div className="container px-5 py-5 ps-3 ps-md-0 pe-3 pe-md-0">
+        <div className="container px-5 py-5 ps-3 ps-md-4 pe-3 pe-md-4">
             <h2 className={`${Style.titleText} mb-5 ms-2`}>Featured Products</h2>
             <div className="row justify-content-center gy-4">
                 {featuredProducts.map((product) => (
