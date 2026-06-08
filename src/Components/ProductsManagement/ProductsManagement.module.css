@@ -14,6 +14,10 @@
     gap: 5px;
 }
 
+.fullWidth{
+    grid-column: 1 / -1;
+}
+
 .cancelTopBtn span, .addBtn span{
     font-size: 0.8rem;
 }
@@ -54,6 +58,10 @@
     font-size: 30px;
     font-weight: 700;
     color: var(--textColor);
+}
+
+.modalHeader h3{
+    margin: 0;
 }
 
 .formGrid,
@@ -176,6 +184,7 @@
 .modal {
     width: 820px;
     max-width: 92%;
+    max-height: 85vh;
     overflow: hidden;
 }
 
@@ -183,6 +192,12 @@
 .modalFooter {
     padding: 24px 30px;
     border-bottom: 1px solid var(--btnBorderColor);
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .modalFooter {
@@ -195,6 +210,8 @@
 
 .modalBody {
     padding: 30px;
+    max-height: calc(85vh - 140px);
+    overflow-y: auto;
 }
 
 .closeBtn {
@@ -203,6 +220,50 @@
     font-size: 28px;
     color: var(--pColor);
     cursor: pointer;
+}
+
+.imageRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.imageRow input {
+    flex: 1;
+}
+
+.imagesSection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.removeImageBtn {
+    width: 46px;
+    min-width: 46px;
+    height: 46px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #ef4444;
+    color: white;
+
+    cursor: pointer;
+    transition: .25s;
+}
+
+.removeImageBtn:hover {
+    opacity: .9;
+}
+
+.addImageBtn {
+    width: fit-content !important;
 }
 
 @media (max-width: 768px) {

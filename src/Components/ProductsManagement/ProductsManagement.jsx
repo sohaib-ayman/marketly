@@ -8,8 +8,8 @@ const emptyForm = {
     title: "",
     price: 0,
     category: "",
-    thumbnail: "",
     description: "",
+    images: [""],
 };
 
 export default function ProductsManagement() {
@@ -72,8 +72,8 @@ export default function ProductsManagement() {
             description: formData.description,
             price: Number(formData.price),
             category: formData.category,
-            thumbnail: formData.thumbnail,
-            images: [formData.thumbnail],
+            images: formData.images.filter(Boolean),
+            thumbnail: formData.images[0] || "",
             creationAt: new Date().toISOString(),
         };
 
@@ -89,8 +89,10 @@ export default function ProductsManagement() {
             title: product.title,
             price: product.price,
             category: product.category,
-            thumbnail: product.thumbnail,
-            description: product.description,
+            images:
+                product.images?.length
+                    ? product.images
+                    : [product.thumbnail], description: product.description,
         });
     }
 
@@ -102,7 +104,9 @@ export default function ProductsManagement() {
             doc(db, "products", String(editingProduct.id)),
             {
                 ...formData,
-                price: Number(formData.price)
+                price: Number(formData.price),
+                images: formData.images.filter(Boolean),
+                thumbnail: formData.images[0] || "",
             }
         );
 
@@ -118,6 +122,33 @@ export default function ProductsManagement() {
 
         setProductToDelete(null);
     }
+
+    function handleImageChange(index, value) {
+        setFormData(prev => {
+            const newImages = [...prev.images];
+            newImages[index] = value;
+
+            return {
+                ...prev,
+                images: newImages,
+            };
+        });
+    }
+
+    function addImageField() {
+        setFormData(prev => ({
+            ...prev,
+            images: [...prev.images, ""],
+        }));
+    }
+
+    function removeImageField(index) {
+        setFormData(prev => ({
+            ...prev,
+            images: prev.images.filter((_, i) => i !== index),
+        }));
+    }
+
     return <>
         {!showAddForm && (<button className={`${Style.addBtn} mb-4`} onClick={() => setShowAddForm(true)}><span><i className="fa-solid fa-plus"></i></span> Add New Product</button>)}
 
@@ -142,7 +173,39 @@ export default function ProductsManagement() {
                             ))}
                         </select>
 
-                        <input name="thumbnail" placeholder="Image URL" value={formData.thumbnail} onChange={handleChange} required />
+                        <div className={`${Style.fullWidth} ${Style.imagesSection}`}>
+                            {formData.images.map((image, index) => (
+                                <div key={index} className={Style.imageRow}>
+                                    <input
+                                        type="text"
+                                        placeholder={`Image ${index + 1}`}
+                                        value={image}
+                                        onChange={(e) =>
+                                            handleImageChange(index, e.target.value)
+                                        }
+                                        required
+                                    />
+
+                                    {formData.images.length > 1 && (
+                                        <button
+                                            type="button"
+                                            className={Style.removeImageBtn}
+                                            onClick={() => removeImageField(index)}
+                                        >
+                                            <i className="fa-solid fa-trash"></i>
+                                        </button>
+                                    )}
+                                </div>
+                            ))}
+
+                            <button
+                                type="button"
+                                className={Style.addBtn}
+                                onClick={addImageField}
+                            >
+                                Add Image
+                            </button>
+                        </div>
                     </div>
 
                     <textarea name="description" rows="5" placeholder="Description" value={formData.description} onChange={handleChange} required />
@@ -182,8 +245,8 @@ export default function ProductsManagement() {
                                 <td className="py-2">${product.price}</td>
 
                                 <td className="py-2">
-                                    <button className={`${Style.editBtn} ps-0`} onClick={() => openEdit(product)}><i className="fa-regular fa-pen-to-square"></i> Edit</button>
-                                    <button className={`${Style.deleteBtn} ps-0`} onClick={() => setProductToDelete(product)}><i className="fa-regular fa-trash-can"></i> Delete</button>
+                                    <button className={`${Style.editBtn} ps-0 bg-transparent`} onClick={() => openEdit(product)}><i className="fa-regular fa-pen-to-square"></i> Edit</button>
+                                    <button className={`${Style.deleteBtn} ps-0 bg-transparent`} onClick={() => setProductToDelete(product)}><i className="fa-regular fa-trash-can"></i> Delete</button>
                                 </td>
                             </tr>
                         ))}
@@ -208,7 +271,44 @@ export default function ProductsManagement() {
                                 <option key={cat.slug} value={cat.slug}>{cat.name}</option>
                             ))}
                             </select>
-                            <input name="thumbnail" value={formData.thumbnail} onChange={handleChange} required />
+                            <div className={Style.fullWidth}>
+                                {formData.images.map((image, index) => (
+                                    <div
+                                        key={index}
+                                        className={Style.imageRow}
+                                    >
+                                        <input
+                                            type="text"
+                                            value={image}
+                                            placeholder={`Image ${index + 1}`}
+                                            onChange={(e) =>
+                                                handleImageChange(index, e.target.value)
+                                            }
+                                            required
+                                        />
+
+                                        {formData.images.length > 1 && (
+                                            <button
+                                                type="button"
+                                                className={Style.removeImageBtn}
+                                                onClick={() =>
+                                                    removeImageField(index)
+                                                }
+                                            >
+                                                <i className="fa-solid fa-trash"></i>
+                                            </button>
+                                        )}
+                                    </div>
+                                ))}
+
+                                <button
+                                    type="button"
+                                    className={Style.addBtn}
+                                    onClick={addImageField}
+                                >
+                                    Add Image
+                                </button>
+                            </div>
                         </div>
 
                         <textarea name="description" rows="5" value={formData.description} onChange={handleChange} required />

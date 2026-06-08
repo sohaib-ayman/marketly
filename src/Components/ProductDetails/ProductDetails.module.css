@@ -92,6 +92,10 @@
     color: var(--btnTextColor);
 }
 
+.infoSection{
+    width: 45%;
+}
+
 .infoSection p {
     color: var(--pColor);
     line-height: 1.6;
@@ -190,6 +194,10 @@
     .wrapper {
         flex-direction: column;
         gap: 20px
+    }
+
+    .infoSection{
+        width: 100%;
     }
 
     .mainImage {

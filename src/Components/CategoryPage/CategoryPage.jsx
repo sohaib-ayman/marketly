@@ -18,7 +18,7 @@ export default function CategoryPage() {
     const [sort, setSort] = useState("");
     const [search, setSearch] = useState("");
     const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(1000);
+    const [maxPrice, setMaxPrice] = useState(Infinity);
     const [showFilters, setShowFilters] = useState(false);
     let [toast, setToast] = useState(null);
     let dispatch = useDispatch();
@@ -28,7 +28,7 @@ export default function CategoryPage() {
     };
 
     if (!currentCategory) {
-        return <Navigate to="/not-found" replace/>
+        return <Navigate to="/not-found" replace />
     }
 
 
@@ -36,7 +36,7 @@ export default function CategoryPage() {
         product =>
             product.category === categorySlug &&
             product.title.toLowerCase().includes(search.toLowerCase()) &&
-            product.price >= minPrice &&
+            product.price >= minPrice && 
             product.price <= maxPrice
     );
     if (sort === "low-high") {
@@ -120,7 +120,7 @@ export default function CategoryPage() {
                         className={Style.resetBtn}
                         onClick={() => {
                             setMinPrice(0);
-                            setMaxPrice(1000);
+                            setMaxPrice(Infinity);
                             setSearch("");
                         }}
                     >

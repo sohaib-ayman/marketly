@@ -3,6 +3,7 @@ import Style from "./AdminDashboard.module.css";
 import { Helmet } from "react-helmet-async";
 import UsersManagement from "../../Components/UsersManagement/UsersManagement";
 import ProductsManagement from "../../Components/ProductsManagement/ProductsManagement";
+import OrdersManagement from "../../Components/OrdersManagement/OrdersManagement";
 import SeedingManagement from "../../Components/SeedingManagement/SeedingManagement";
 import BackupManagement from "../../Components/BackupManagement/BackupManagement";
 import { UserContext } from "../../Context/UserContext";
@@ -14,7 +15,7 @@ export default function AdminDashboard() {
     return <>
         <Helmet>
             <title>Admin Dashboard | Marketly</title>
-            <meta name="description" content="Manage products, users, and store data from the Marketly admin dashboard." />
+            <meta name="description" content="Manage products, users, orders, backups, and system settings from the Marketly admin dashboard." />
             <meta name="robots" content="noindex, nofollow" />
         </Helmet>
 
@@ -23,7 +24,7 @@ export default function AdminDashboard() {
 
                 <div className={Style.header}>
                     <h1>Admin Dashboard</h1>
-                    <p>Manage users and products</p>
+                    <p>Manage products, users, orders, backups and system settings.</p>
                 </div>
 
                 <div className={Style.tabs}>
@@ -33,6 +34,10 @@ export default function AdminDashboard() {
 
                     <button className={`${Style.tabBtn} ${activeTab === "products" ? Style.active : ""} bg-transparent`} onClick={() => setActiveTab("products")}>
                         <i className="fa-solid fa-box-open"></i> Products Management
+                    </button>
+
+                    <button className={`${Style.tabBtn} ${activeTab === "orders" ? Style.active : ""} bg-transparent`} onClick={() => setActiveTab("orders")}>
+                        <i className="fa-solid fa-dolly"></i> Orders Management
                     </button>
 
                     {user?.role === "owner" && (
@@ -50,6 +55,7 @@ export default function AdminDashboard() {
 
                 {activeTab === "users" && <UsersManagement />}
                 {activeTab === "products" && <ProductsManagement />}
+                {activeTab === "orders" && <OrdersManagement />}
                 {activeTab === "seeding" && user?.role === "owner" && (<SeedingManagement />)}
                 {activeTab === "backup" && user?.role === "owner" && (<BackupManagement />)}
 

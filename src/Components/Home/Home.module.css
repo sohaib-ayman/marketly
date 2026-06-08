@@ -108,15 +108,16 @@
 
 .productImg {
     position: relative;
-    height: auto;
     width: 100%;
+    height: 300px;
     overflow: hidden;
+    background: var(--cardBgColor);
 }
 
 .productImg img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     transition: transform 0.4s ease;
 }
 
@@ -176,7 +177,13 @@
 .productInfo h3 {
     font-size: 1.1rem;
     font-weight: 600;
-    min-height: 48px;
+    line-height: 1.4;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
 }
 
 @keyframes fadeUp {
