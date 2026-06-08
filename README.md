@@ -1,161 +1,209 @@
-Marketly
+# Marketly
 
 Modern e-commerce web application built with React, Firebase, Redux Toolkit, and Firestore.
 
-Live Demo
+## Live Demo
 
 https://marketly-nu.vercel.app
 
 ---
 
-Features
+## Features
 
-- Firebase Authentication
-- Guest browsing support
-- Persistent cart system
-- Product categories and product details pages
-- Real order system using Firestore
-- Order tracking
-- Admin dashboard
-- Products management
-- Users management
-- Backup & Restore system
-- Seeding products from Platzi API
-- Dark / Light mode
-- Responsive design
-- SEO optimization using React Helmet
+### Authentication & Users
 
----
+* Firebase Authentication
+* Guest browsing support
+* Persistent user sessions
+* User roles (User, Admin, Owner)
 
-System Overview
+### Shopping Experience
 
-The project uses Firebase Authentication and Firestore instead of relying directly on Platzi API data.
+* Product catalog
+* Categories browsing
+* Product details pages
+* Search and filtering
+* Shopping cart
+* Real checkout flow
+* Order tracking
+* Order history
 
-This approach was implemented because Platzi product data can sometimes become unstable since editing and deleting products are publicly accessible there.
+### Admin Dashboard
 
-To solve this issue, products are fetched from Platzi API once and stored inside a dedicated Firestore collection, then the application works entirely using Firestore data.
+* User Management
+* Product Management
+* Order Management
+* Real-time Firestore updates
 
-Orders are also stored in Firestore, which means:
+### Owner Features
 
-- Orders are accessible from any device
-- Orders persist after refresh or logout
-- My Orders and Track Order pages use real Firestore data
+* Backup & Restore system
+* Products seeding from Platzi API
+* System settings management
 
-Only cart items are temporarily stored in localStorage and they are automatically cleared after successful checkout.
+### Additional Features
 
----
-
-Admin Dashboard
-
-The admin dashboard includes:
-
-Users Management
-
-- View registered users
-- Remove users from Firestore collection
-
-Note:
-Deleting a user only removes them from the Firestore collection.
-If the same user logs in again, they will automatically appear again because permanent account deletion requires backend admin privileges.
-
-Products Management
-
-- Add products
-- Edit products
-- Delete products
-
-All changes are applied directly to Firestore and affect the live website data.
+* Dark / Light mode
+* Responsive design
+* SEO optimization with React Helmet Async
+* Toast notifications
+* Real-time Firestore synchronization
 
 ---
 
-Owner Features
+## System Architecture
 
-The owner role includes two additional tabs:
+Marketly uses Firebase Authentication and Firestore as the primary backend services.
 
-Backup & Restore
+Although products can be imported from the Platzi API, the application does not rely on Platzi data during normal operation.
 
-Creates backups for the products collection and restores products in case of accidental deletion.
+Products are imported once and stored in Firestore, allowing the application to:
 
-Seeding
+* Maintain stable product data
+* Avoid external API inconsistencies
+* Support real product management operations
+* Keep all modifications synchronized across the platform
 
-Fetches products from Platzi API and inserts them into the main Firestore products collection.
+Orders are stored entirely in Firestore, which means:
+
+* Orders are available across devices
+* Orders persist after logout
+* Order tracking uses real database data
+* Admins can manage order statuses in real time
+
+Only cart items are temporarily stored in localStorage and are automatically cleared after a successful checkout.
 
 ---
 
-Demo Admin Account
+## Admin Dashboard
 
-Email: admin@marketly.com
+### Users Management
+
+* View registered users
+* Remove users from Firestore records
+
+**Note:** Removing a user only deletes the Firestore document. If the same user signs in again, a new record will be automatically created.
+
+### Products Management
+
+* Create products
+* Edit products
+* Delete products
+* Manage multiple product images
+
+All changes are applied directly to Firestore and immediately affect the live website.
+
+### Orders Management
+
+* View all orders
+* Inspect order details
+* Update order status
+* Track customer purchases
+
+---
+
+## Owner Features
+
+### Backup & Restore
+
+Create backups of products and categories collections and restore them when needed.
+
+### Products Seeding
+
+Import products from Platzi API directly into Firestore collections.
+
+### Settings
+
+Manage system-level operations and data synchronization.
+
+---
+
+## Demo Admin Account
+
+Email: [admin@marketly.com](mailto:admin@marketly.com)
 
 Password: 123456789
 
-The owner account remains private to avoid accidental modifications to the database.
+The Owner account remains private to prevent accidental database modifications.
 
 ---
 
-Tech Stack
+## Tech Stack
 
-Frontend
+### Frontend
 
-- React
-- React Router DOM
-- Redux Toolkit
-- CSS Modules
-- Bootstrap
-- React Helmet Async
-- React Hot Toast
-- Formik
-- Yup
+* React
+* React Router DOM
+* Redux Toolkit
+* CSS Modules
+* Bootstrap
+* React Helmet Async
+* React Hot Toast
+* Formik
+* Yup
 
-Backend Services
+### Backend Services
 
-- Firebase Authentication
-- Firestore Database
+* Firebase Authentication
+* Cloud Firestore
 
-Deployment
+### Deployment
 
-- Vercel
+* Vercel
 
 ---
 
-Installation
+## Installation
 
-Clone the repository
+### Clone Repository
 
-git clone https://github.com/your-username/marketly.git
+```bash
+git clone https://github.com/sohaib-ayman/marketly.git
+```
 
-Navigate to project folder
+### Navigate to Project Directory
 
+```bash
 cd marketly
+```
 
-Install dependencies
+### Install Dependencies
 
+```bash
 npm install
+```
 
-Run development server
+### Run Development Server
 
+```bash
 npm start
+```
 
 ---
 
-Project Structure
+## Project Structure
 
+```text
 src/
- ├── Components/
- ├── Context/
- ├── Store/
- ├── firebase.js
- ├── App.js
+├── Components/
+├── Context/
+├── Store/
+├── firebase.js
+├── App.js
+```
 
 ---
 
-Team Members
+## Team Members
 
-- Sohaib Ayman Elsayed Elbadawy Ashry
-- Hossam Hassan Mostafa Hassan
-- Mohamed Ahmed Thabet Hussein
-- Rawan Hamdi Mohamed Saad
-- Abdelrahman Khaled Slahelden Mohamed
+* Sohaib Ayman Elsayed Elbadawy Ashry
+* Hossam Hassan Mostafa Hassan
+* Mohamed Ahmed Thabet Hussein
+* Rawan Hamdi Mohamed Saad
+* Abdelrahman Khaled Slahelden Mohamed
 
 ---
+
+## Initiative
 
 This project was developed as part of the Digital Egypt Pioneers Initiative (DEPI).
