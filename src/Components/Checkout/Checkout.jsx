@@ -8,6 +8,7 @@ import { db } from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { clearCart } from "../../Store/cartSlice";
 import { UserContext } from "../../Context/UserContext";
+import { PropagateLoader } from "react-spinners";
 
 function generateOrderId() {
   const random = Math.floor(100 + Math.random() * 900);
@@ -21,6 +22,8 @@ export default function Checkout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [orderCompleted, setOrderCompleted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -32,7 +35,7 @@ export default function Checkout() {
     cvv: "",
   });
 
-  if (items.length === 0) {
+  if (items.length === 0 && !orderCompleted) {
     toast.error("Your cart is empty");
     return <Navigate to="/cart" replace />;
   }
@@ -53,6 +56,13 @@ export default function Checkout() {
   }
 
   async function handleCompleteOrder() {
+    if (!navigator.onLine) {
+      toast.error("Please Check your internet connection and try again", {
+      });
+      return;
+    }
+    if (isSubmitting) return;
+
     const { name, email, address, city, zip, cardNumber, expiry, cvv } =
       formData;
 
@@ -84,6 +94,8 @@ export default function Checkout() {
       toast.error("Invalid CVV");
       return;
     }
+
+    setIsSubmitting(true);
 
     try {
       const orderId = generateOrderId();
@@ -122,12 +134,16 @@ export default function Checkout() {
         }),
       );
 
+      setOrderCompleted(true);
+
       toast.success("Order placed successfully!");
 
       navigate("/my-orders");
     } catch (err) {
       console.error(err);
       toast.error("Failed to place order");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -270,8 +286,8 @@ export default function Checkout() {
               </div>
             </div>
 
-            <button className={Style.completeBtn} onClick={handleCompleteOrder}>
-              Complete Order
+            <button className={Style.completeBtn} onClick={handleCompleteOrder} disabled={isSubmitting}>
+              {isSubmitting ? (<PropagateLoader color="#fff" size={10} />) : ("Complete Order")}
             </button>
           </div>
 
